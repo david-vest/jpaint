@@ -1,5 +1,6 @@
 package main;
 
+import controller.CommandController;
 import controller.EventConnector;
 import controller.EventConnectorImpl;
 import controller.KeyboardInterface;
@@ -22,16 +23,16 @@ public class Main {
         UiModule uiModule = new Gui(guiWindow);
         UserChoicesImpl appState = new UserChoicesImpl(uiModule);
         EventConnector controller = new EventConnectorImpl(uiModule, appState);
+        CommandController commandController = new CommandController(appState, paintCanvas);
 
         KeyboardInterface keys = new KeyboardInterface(paintCanvas, appState);
         keys.setup();
 
-        MouseHandler mouse = new MouseHandler();
+        MouseHandler mouse = new MouseHandler(commandController);
         paintCanvas.addMouseListener(mouse);
         controller.setup();
 
         Thread.sleep(500);
-
         Graphics2D graphics2d = paintCanvas.getGraphics2D();
 
         // - Begin example: remove after you understand it

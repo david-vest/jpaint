@@ -1,4 +1,4 @@
-package controller.command;
+package controller.commands;
 
 import java.util.Stack;
 import controller.interfaces.Undoable;
