@@ -1,0 +1,54 @@
+package controller.shapes;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import controller.interfaces.IShape;
+import model.ShapeColor;
+import model.ShapeShadingType;
+import model.interfaces.UserChoices;
+
+public class Rectangle implements IShape {
+
+  private UserChoices state;
+  private Point start;
+  private Point end;
+  private ShapeColor primary, secondary;
+  private ShapeShadingType shading;
+
+  public Rectangle(UserChoices state, Point start, Point end) {
+    this.state = state;
+    this.start = start;
+    this.end = end;
+    this.primary = state.getActivePrimaryColor();
+    this.secondary = state.getActiveSecondaryColor();
+    this.shading = state.getActiveShapeShadingType();
+  }
+
+  @Override
+  public Point getStart() {
+    return start;
+  }
+
+  @Override
+  public Point getEnd() {
+    return end;
+  }
+
+  @Override
+  public void render(Graphics2D g) {
+    Color primColor = primary.get();
+    int minX, minY, maxX, maxY;
+    minX = Math.min(start.x, end.x);
+    minY = Math.min(start.y, end.y);
+    maxX = Math.max(start.x, end.x);
+    maxY = Math.max(start.y, end.y);
+
+    if (maxX - minX > 0 && maxY - minY > 0) {
+      g.setPaint(primColor);
+      g.fillRect(minX, minY, maxX-minX, maxY-minY);
+      g.drawRect(minX, minY, maxX-minX, maxY-minY);
+    }
+  }
+}

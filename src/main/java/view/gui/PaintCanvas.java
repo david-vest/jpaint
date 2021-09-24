@@ -1,5 +1,6 @@
 package view.gui;
 
+import controller.Picture;
 import javax.swing.JComponent;
 import java.awt.*;
 import org.slf4j.Logger;
@@ -12,11 +13,12 @@ import org.slf4j.LoggerFactory;
  */
 public class PaintCanvas extends JComponent {
 
-    // part of the example below.  Please removed when the example is removed
-    private int paintCount = 0;
-
     private static final Logger log = LoggerFactory.getLogger(PaintCanvas.class);
+    public Picture picture;
 
+    public PaintCanvas(Picture picture) {
+        this.picture = picture;
+    }
     public Graphics2D getGraphics2D() {
         return (Graphics2D)getGraphics();
     }
@@ -29,25 +31,6 @@ public class PaintCanvas extends JComponent {
      */
     public void paintComponent(Graphics graphics) {
         Graphics2D graphics2d = (Graphics2D) graphics;
-//
-//        // - Begin example: remove after you understand it
-//        paintCount++;
-//        log.debug("time to paint " + paintCount);
-//
-//        graphics2d.setColor(Color.GREEN);
-//        graphics2d.fillRect(12, 13, 200, 400);
-//
-//        // Outlined rectangle
-//        graphics2d.setStroke(new BasicStroke(5));
-//        graphics2d.setColor(Color.BLUE);
-//        graphics2d.drawRect(12, 13, 200, 400);
-//
-//        // Selected Shape
-//        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-//        graphics2d.setStroke(stroke);
-//        graphics2d.setColor(Color.BLACK);
-//        graphics2d.drawRect(7, 8, 210, 410);
-//
-//        // - End example
-    }
+        picture.draw(graphics2d);
+   }
 }
