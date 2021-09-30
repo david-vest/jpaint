@@ -18,6 +18,7 @@ public class CreateShapeCommand implements ICommand, Undoable {
   private final Point start;
   private final Point end;
   private final ShapeRenderer renderer;
+  private IShape shape;
 
   public CreateShapeCommand(UserChoices state, ShapeRenderer renderer, ShapeList shapeList, PaintCanvas paintCanvas, Point start, Point end){
     this.state = state;
@@ -26,11 +27,12 @@ public class CreateShapeCommand implements ICommand, Undoable {
     this.paintCanvas = paintCanvas;
     this.start = start;
     this.end = end;
+    this.shape = null;
   }
 
   @Override
   public void execute() {
-    IShape shape = ShapeFactory.createShape(state, start, end);
+    shape = ShapeFactory.createShape(state, start, end);
     renderer.renderShape(shape, paintCanvas.getGraphics2D());
     shapeList.add(shape);
     CommandHistory.add(this);
@@ -38,11 +40,13 @@ public class CreateShapeCommand implements ICommand, Undoable {
 
   @Override
   public void undo() {
-
+    shapeList.pop();
+    paintCanvas.repaint();
   }
 
   @Override
   public void redo() {
-
+    shapeList.add(shape);
+    paintCanvas.repaint();
   }
 }

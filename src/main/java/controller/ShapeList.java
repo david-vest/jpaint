@@ -19,7 +19,7 @@ public class ShapeList {
     shapeContainer.add(shape);
   }
 
-  public IShape pop(IShape shape) {
+  public IShape pop() {
     if (shapeContainer.isEmpty()) {
       throw new EmptyStackException();
     }
