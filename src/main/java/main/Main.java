@@ -5,11 +5,9 @@ import controller.EventConnector;
 import controller.EventConnectorImpl;
 import controller.KeyboardInterface;
 import controller.MouseHandler;
-import controller.Picture;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Stroke;
+import controller.ShapeList;
+import controller.shapes.ShapeRenderer;
+import java.awt.Shape;
 import model.persistence.UserChoicesImpl;
 import view.gui.Gui;
 import view.gui.GuiWindowImpl;
@@ -19,13 +17,14 @@ import view.interfaces.UiModule;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Picture picture = new Picture();
-        PaintCanvas paintCanvas = new PaintCanvas(picture);
+        ShapeList shapeList = new ShapeList();
+        PaintCanvas paintCanvas = new PaintCanvas(shapeList);
         GuiWindow guiWindow = new GuiWindowImpl(paintCanvas);
         UiModule uiModule = new Gui(guiWindow);
         UserChoicesImpl appState = new UserChoicesImpl(uiModule);
+        ShapeRenderer renderer = new ShapeRenderer(appState, paintCanvas.getGraphics2D());
         EventConnector controller = new EventConnectorImpl(uiModule, appState);
-        CommandController commandController = new CommandController(appState, paintCanvas);
+        CommandController commandController = new CommandController(appState, paintCanvas, renderer);
 
         KeyboardInterface keys = new KeyboardInterface(paintCanvas, appState);
         keys.setup();

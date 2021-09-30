@@ -2,6 +2,7 @@ package controller.commands;
 
 import controller.interfaces.ICommand;
 import controller.interfaces.Undoable;
+import controller.shapes.ShapeRenderer;
 import java.awt.Point;
 import controller.interfaces.IShape;
 import model.interfaces.UserChoices;
@@ -11,13 +12,13 @@ import view.gui.PaintCanvas;
 public class CreateShapeCommand implements ICommand, Undoable {
 
   private UserChoices state;
-  private PaintCanvas paintCanvas;
   private final Point start;
   private final Point end;
+  private final ShapeRenderer renderer;
 
-  public CreateShapeCommand(UserChoices state, PaintCanvas paintCanvas, Point start, Point end){
+  public CreateShapeCommand(UserChoices state, ShapeRenderer renderer, Point start, Point end){
     this.state = state;
-    this.paintCanvas = paintCanvas;
+    this.renderer = renderer;
     this.start = start;
     this.end = end;
   }
@@ -25,7 +26,8 @@ public class CreateShapeCommand implements ICommand, Undoable {
   @Override
   public void execute() {
     IShape shape = ShapeFactory.createShape(state, start, end);
-    paintCanvas.picture.push(shape);
+    renderer.renderRectangle(shape);
+    CommandHistory.add(this);
   }
 
   @Override

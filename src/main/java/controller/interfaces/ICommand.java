@@ -1,6 +1,6 @@
 package controller.interfaces;
 
-public interface ICommand extends Undoable{
+public interface ICommand {
 
   void execute();
 }

@@ -37,18 +37,12 @@ public class Rectangle implements IShape {
   }
 
   @Override
-  public void render(Graphics2D g) {
-    Color primColor = primary.get();
-    int minX, minY, maxX, maxY;
-    minX = Math.min(start.x, end.x);
-    minY = Math.min(start.y, end.y);
-    maxX = Math.max(start.x, end.x);
-    maxY = Math.max(start.y, end.y);
+  public Color getPrimaryColor() {
+    return primary.get();
+  }
 
-    if (maxX - minX > 0 && maxY - minY > 0) {
-      g.setPaint(primColor);
-      g.fillRect(minX, minY, maxX-minX, maxY-minY);
-      g.drawRect(minX, minY, maxX-minX, maxY-minY);
-    }
+  @Override
+  public Color getSecondaryColor() {
+    return secondary.get();
   }
 }

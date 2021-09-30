@@ -1,6 +1,6 @@
 package view.gui;
 
-import controller.Picture;
+import controller.ShapeList;
 import javax.swing.JComponent;
 import java.awt.*;
 import org.slf4j.Logger;
@@ -14,10 +14,10 @@ import org.slf4j.LoggerFactory;
 public class PaintCanvas extends JComponent {
 
     private static final Logger log = LoggerFactory.getLogger(PaintCanvas.class);
-    public Picture picture;
+    private ShapeList shapeList;
 
-    public PaintCanvas(Picture picture) {
-        this.picture = picture;
+    public PaintCanvas(ShapeList shapeList) {
+        this.shapeList = shapeList;
     }
     public Graphics2D getGraphics2D() {
         return (Graphics2D)getGraphics();
@@ -26,11 +26,11 @@ public class PaintCanvas extends JComponent {
     @Override
     /**
      * This is an event handler.  If this function gets called, its time to
-     * draw the entire picture.
+     * draw the entire shapeList.
      * It you want to force a paint event, call aPaintCanvas.repaint()
      */
     public void paintComponent(Graphics graphics) {
         Graphics2D graphics2d = (Graphics2D) graphics;
-        picture.draw(graphics2d);
+        shapeList.draw(graphics2d);
    }
 }
