@@ -1,14 +1,18 @@
 package controller;
 
+import controller.shapes.ShapeRenderer;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import controller.interfaces.IShape;
 
 public class ShapeList {
+
+  private final ShapeRenderer renderer;
   private ArrayList<IShape> shapeContainer = new ArrayList<>();
 
-  public ShapeList() {
+  public ShapeList(ShapeRenderer renderer) {
+    this.renderer = renderer;
   }
 
   public void add(IShape shape) {
@@ -31,6 +35,6 @@ public class ShapeList {
   }
 
   public void draw(Graphics2D graphics2D) {
-//    shapeContainer.forEach((s) -> );
+    shapeContainer.forEach((s) -> renderer.renderShape(s, graphics2D));
   }
 }

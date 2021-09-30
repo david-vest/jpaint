@@ -2,21 +2,29 @@ package controller.shapes;
 
 import controller.interfaces.IShape;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import model.interfaces.UserChoices;
 import model.persistence.UserChoicesImpl;
 
 public class ShapeRenderer {
-  UserChoices state;
-  Graphics2D graphics2D;
 
-  public ShapeRenderer(UserChoices state, Graphics2D graphics2D) {
-   this.state = state;
-   this.graphics2D = graphics2D;
+  public void renderShape(IShape shape, Graphics2D graphics2D) {
+    switch (shape.getShapeType()) {
+      case RECTANGLE:
+        renderRectangle(shape, graphics2D);
+        break;
+      case TRIANGLE:
+        renderTriangle(shape, graphics2D);
+        break;
+      case ELLIPSE:
+        renderEllipse(shape, graphics2D);
+        break;
+    }
   }
 
-  public void renderRectangle(IShape shape) {
+  private void renderRectangle(IShape shape, Graphics2D graphics2D) {
     Color primColor = shape.getPrimaryColor();
     Point start = shape.getStart();
     Point end = shape.getEnd();
@@ -32,6 +40,16 @@ public class ShapeRenderer {
     graphics2D.setPaint(primColor);
     graphics2D.fillRect(x1, y1, width, height);
     graphics2D.drawRect(x1, y1, width, height);
+  }
+
+  //TODO: Render Triangle
+  private void renderTriangle(IShape shape, Graphics2D graphics2D) {
+
+  }
+
+  //TODO: Render Ellipse
+  private void renderEllipse(IShape shape, Graphics2D graphics2D) {
+
   }
 
 }

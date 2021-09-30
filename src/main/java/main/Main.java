@@ -17,14 +17,14 @@ import view.interfaces.UiModule;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        ShapeList shapeList = new ShapeList();
+        ShapeRenderer renderer = new ShapeRenderer();
+        ShapeList shapeList = new ShapeList(renderer);
         PaintCanvas paintCanvas = new PaintCanvas(shapeList);
         GuiWindow guiWindow = new GuiWindowImpl(paintCanvas);
         UiModule uiModule = new Gui(guiWindow);
         UserChoicesImpl appState = new UserChoicesImpl(uiModule);
-        ShapeRenderer renderer = new ShapeRenderer(appState, paintCanvas.getGraphics2D());
         EventConnector controller = new EventConnectorImpl(uiModule, appState);
-        CommandController commandController = new CommandController(appState, paintCanvas, renderer);
+        CommandController commandController = new CommandController(appState, shapeList, paintCanvas, renderer);
 
         KeyboardInterface keys = new KeyboardInterface(paintCanvas, appState);
         keys.setup();
