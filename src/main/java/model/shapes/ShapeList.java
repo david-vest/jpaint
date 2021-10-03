@@ -1,15 +1,18 @@
-package controller;
+package model.shapes;
 
-import controller.shapes.ShapeRenderer;
+import model.interfaces.IShape;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
-import controller.interfaces.IShape;
+
+/**
+ * ShapeList relies on an ArrayList of IShapes to hold all the shapes drawn.
+ */
 
 public class ShapeList {
 
   private final ShapeRenderer renderer;
-  private ArrayList<IShape> shapeContainer = new ArrayList<>();
+  private final ArrayList<IShape> shapeContainer = new ArrayList<>();
 
   public ShapeList(ShapeRenderer renderer) {
     this.renderer = renderer;
@@ -19,18 +22,10 @@ public class ShapeList {
     shapeContainer.add(shape);
   }
 
-  public IShape pop() {
-    if (shapeContainer.isEmpty()) {
-      throw new EmptyStackException();
-    }
-    return shapeContainer.remove(shapeContainer.size() - 1);
-  }
-
   public boolean remove(IShape shape) {
     if (shapeContainer.isEmpty()) {
       throw new EmptyStackException();
     }
-
     return shapeContainer.remove(shape);
   }
 

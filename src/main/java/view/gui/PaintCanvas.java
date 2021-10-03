@@ -1,6 +1,6 @@
 package view.gui;
 
-import controller.ShapeList;
+import model.shapes.ShapeList;
 import javax.swing.JComponent;
 import java.awt.*;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class PaintCanvas extends JComponent {
 
     private static final Logger log = LoggerFactory.getLogger(PaintCanvas.class);
-    private ShapeList shapeList;
+    private final ShapeList shapeList;
 
     public PaintCanvas(ShapeList shapeList) {
         this.shapeList = shapeList;

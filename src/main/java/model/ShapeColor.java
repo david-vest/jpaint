@@ -2,6 +2,10 @@ package model;
 
 import java.awt.*;
 
+/**
+ * ShapeColor holds the enum values for the shape color choices.
+ */
+
 public enum ShapeColor {
     BLACK(Color.BLACK),
     BLUE(Color.BLUE),
@@ -23,6 +27,10 @@ public enum ShapeColor {
         this.jColor = jColor;
     }
 
+    /**
+     * Converts the enum value of ShapeColor to the Java awt color
+     * @return java.avt.Color
+     */
     public Color get(){
         return this.jColor;
     }

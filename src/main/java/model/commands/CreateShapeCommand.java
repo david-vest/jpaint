@@ -1,14 +1,19 @@
-package controller.commands;
+package model.commands;
 
-import controller.ShapeList;
+import model.shapes.ShapeList;
+import controller.command.CommandHistory;
 import controller.interfaces.ICommand;
 import controller.interfaces.Undoable;
-import controller.shapes.ShapeRenderer;
+import model.shapes.ShapeRenderer;
 import java.awt.Point;
-import controller.interfaces.IShape;
+import model.interfaces.IShape;
 import model.interfaces.UserChoices;
-import controller.shapes.ShapeFactory;
+import model.shapes.ShapeFactory;
 import view.gui.PaintCanvas;
+
+/**
+ * CreateShapeCommand gets a shape instance and renders the shape.
+ */
 
 public class CreateShapeCommand implements ICommand, Undoable {
 
@@ -40,7 +45,7 @@ public class CreateShapeCommand implements ICommand, Undoable {
 
   @Override
   public void undo() {
-    shapeList.pop();
+    shapeList.remove(shape);
     paintCanvas.repaint();
   }
 

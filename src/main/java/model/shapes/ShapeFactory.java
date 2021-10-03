@@ -1,9 +1,12 @@
-package controller.shapes;
+package model.shapes;
 
 import java.awt.Point;
-import controller.interfaces.IShape;
-import model.ShapeType;
+import model.interfaces.IShape;
 import model.interfaces.UserChoices;
+
+/**
+ * ShapeFactory is a static factory that creates a Shape instance depending on the UserChoices state
+ */
 
 public class ShapeFactory {
 

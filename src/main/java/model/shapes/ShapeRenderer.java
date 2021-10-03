@@ -1,14 +1,12 @@
-package controller.shapes;
+package model.shapes;
 
-import controller.interfaces.IShape;
+import model.interfaces.IShape;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import model.interfaces.UserChoices;
-import model.persistence.UserChoicesImpl;
+import model.interfaces.IRenderer;
 
-public class ShapeRenderer {
+public class ShapeRenderer implements IRenderer {
 
   public void renderShape(IShape shape, Graphics2D graphics2D) {
     switch (shape.getShapeType()) {

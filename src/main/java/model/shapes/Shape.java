@@ -1,6 +1,6 @@
-package controller.shapes;
+package model.shapes;
 
-import controller.interfaces.IShape;
+import model.interfaces.IShape;
 import java.awt.Color;
 import java.awt.Point;
 import model.ShapeColor;
@@ -8,13 +8,18 @@ import model.ShapeShadingType;
 import model.ShapeType;
 import model.interfaces.UserChoices;
 
+/**
+ * @see model.interfaces.IShape
+ */
+
 public class Shape implements IShape {
 
-  private UserChoices state;
-  private Point start;
-  private Point end;
-  private ShapeColor primary, secondary;
-  private ShapeShadingType shading;
+  private final UserChoices state;
+  private final Point start;
+  private final Point end;
+  private final ShapeColor primary;
+  private final ShapeColor secondary;
+  private final ShapeShadingType shading;
 
   public Shape(UserChoices state, Point start, Point end) {
     this.state = state;

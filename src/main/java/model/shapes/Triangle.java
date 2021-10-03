@@ -1,4 +1,4 @@
-package controller.shapes;
+package model.shapes;
 
 import java.awt.Point;
 import model.ShapeType;

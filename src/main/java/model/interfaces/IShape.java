@@ -1,9 +1,13 @@
-package controller.interfaces;
+package model.interfaces;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import model.ShapeType;
+
+/**
+ *  IShape is responsible for holding a drawn shape's data.
+ */
+
 
 public interface IShape {
 

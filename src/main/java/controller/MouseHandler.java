@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 public class MouseHandler extends MouseAdapter {
 
   private static final Logger log = LoggerFactory.getLogger(MouseHandler.class);
-  private CommandController controller;
+  private final CommandController controller;
   private Point startPoint;
   private Point endPoint;
 

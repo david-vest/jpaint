@@ -33,8 +33,8 @@ import model.interfaces.UserChoices;
  *    keys.setup();
  */
 public class KeyboardInterface {
-  private JComponent target;
-  private UserChoices userChoices;
+  private final JComponent target;
+  private final UserChoices userChoices;
 
   public KeyboardInterface(JComponent target, UserChoices userChoices) {
     this.target = target;
@@ -65,6 +65,7 @@ public class KeyboardInterface {
 
       @Override
       public void actionPerformed(ActionEvent e) {
+        //noinspection unchecked
         c.accept(mode);
       }
     });

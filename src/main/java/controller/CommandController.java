@@ -1,13 +1,17 @@
 package controller;
 
-import controller.commands.CommandHistory;
-import controller.commands.CreateShapeCommand;
+import model.commands.CreateShapeCommand;
 import controller.interfaces.ICommand;
-import controller.shapes.ShapeRenderer;
+import model.shapes.ShapeList;
+import model.shapes.ShapeRenderer;
 import java.awt.Point;
 import model.MouseMode;
 import model.interfaces.UserChoices;
 import view.gui.PaintCanvas;
+
+/**
+ * CommandController communicates with MouseHandler to call the appropriate commands depending on the UserChoices state
+ */
 
 public class CommandController {
 
