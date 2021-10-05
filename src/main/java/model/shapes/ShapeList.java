@@ -11,25 +11,24 @@ import java.util.EmptyStackException;
 
 public class ShapeList {
 
-  private final ShapeRenderer renderer;
   private final ArrayList<IShape> shapeContainer = new ArrayList<>();
 
-  public ShapeList(ShapeRenderer renderer) {
-    this.renderer = renderer;
+  public ShapeList() {
+
   }
 
   public void add(IShape shape) {
     shapeContainer.add(shape);
   }
 
-  public boolean remove(IShape shape) {
+  public void remove(IShape shape) {
     if (shapeContainer.isEmpty()) {
       throw new EmptyStackException();
     }
-    return shapeContainer.remove(shape);
+    shapeContainer.remove(shape);
   }
 
   public void draw(Graphics2D graphics2D) {
-    shapeContainer.forEach((s) -> renderer.renderShape(s, graphics2D));
+    shapeContainer.forEach((s) -> s.draw(graphics2D));
   }
 }

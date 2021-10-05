@@ -6,7 +6,6 @@ import controller.EventConnectorImpl;
 import controller.KeyboardInterface;
 import controller.MouseHandler;
 import model.shapes.ShapeList;
-import model.shapes.ShapeRenderer;
 import model.persistence.UserChoicesImpl;
 import view.gui.Gui;
 import view.gui.GuiWindowImpl;
@@ -16,15 +15,14 @@ import view.interfaces.UiModule;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        ShapeRenderer renderer = new ShapeRenderer();
-        ShapeList shapeList = new ShapeList(renderer);
+        ShapeList shapeList = new ShapeList();
         PaintCanvas paintCanvas = new PaintCanvas(shapeList);
         GuiWindow guiWindow = new GuiWindowImpl(paintCanvas);
         UiModule uiModule = new Gui(guiWindow);
         UserChoicesImpl appState = new UserChoicesImpl(uiModule);
-        EventConnector controller = new EventConnectorImpl(uiModule, appState);
-        CommandController commandController = new CommandController(appState, shapeList, paintCanvas, renderer);
+        CommandController commandController = new CommandController(appState, shapeList, paintCanvas);
 
+        EventConnector controller = new EventConnectorImpl(uiModule, appState, commandController);
         KeyboardInterface keys = new KeyboardInterface(paintCanvas, appState);
         keys.setup();
 

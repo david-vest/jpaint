@@ -1,6 +1,7 @@
 package model.interfaces;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import model.ShapeType;
 
@@ -14,6 +15,11 @@ public interface IShape {
   Point getStart();
   Point getEnd();
   Color getPrimaryColor();
-  Color getSecondaryColor();
   ShapeType getShapeType();
+  int getWidth();
+  int getHeight();
+  void normalizePoints();
+  void setStart(Point p);
+  void setEnd(Point p);
+  void draw(Graphics2D graphics2D);
 }
