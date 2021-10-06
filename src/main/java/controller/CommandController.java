@@ -1,6 +1,8 @@
 package controller;
 
+import controller.command.CommandFactory;
 import controller.command.CommandHistory;
+import controller.interfaces.ICommandFactory;
 import model.commands.CreateShapeCommand;
 import controller.interfaces.ICommand;
 import model.shapes.ShapeList;
@@ -17,21 +19,18 @@ public class CommandController {
 
   private final PaintCanvas paintCanvas;
   private final UserChoices state;
-  private final ShapeList shapeList;
+  private final ICommandFactory commandFactory;
 
-  public CommandController(UserChoices state, ShapeList shapeList, PaintCanvas paintCanvas) {
+  public CommandController(UserChoices state, CommandFactory commandFactory, PaintCanvas paintCanvas) {
     this.state = state;
     this.paintCanvas = paintCanvas;
-    this.shapeList = shapeList;
+    this.commandFactory = commandFactory;
   }
 
   public void onDraw(Point start, Point end) {
-    ICommand command;
-    if (state.getActiveMouseMode() == MouseMode.DRAW) {
-      command = new CreateShapeCommand(state, shapeList, start, end);
-      command.execute();
-      paintCanvas.repaint();
-    }
+    ICommand command = commandFactory.makeDrawCommand(start, end);
+    command.execute();
+    paintCanvas.repaint();
   }
 
   public void onUndo() {

@@ -5,6 +5,7 @@ import controller.EventConnector;
 import controller.EventConnectorImpl;
 import controller.KeyboardInterface;
 import controller.MouseHandler;
+import controller.command.CommandFactory;
 import model.shapes.ShapeList;
 import model.persistence.UserChoicesImpl;
 import view.gui.Gui;
@@ -20,7 +21,8 @@ public class Main {
         GuiWindow guiWindow = new GuiWindowImpl(paintCanvas);
         UiModule uiModule = new Gui(guiWindow);
         UserChoicesImpl appState = new UserChoicesImpl(uiModule);
-        CommandController commandController = new CommandController(appState, shapeList, paintCanvas);
+        CommandFactory commandFactory = new CommandFactory(appState, shapeList);
+        CommandController commandController = new CommandController(appState, commandFactory, paintCanvas);
 
         EventConnector controller = new EventConnectorImpl(uiModule, appState, commandController);
         KeyboardInterface keys = new KeyboardInterface(paintCanvas, appState);
