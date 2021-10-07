@@ -1,7 +1,7 @@
 package view.draw;
 
 import java.awt.Graphics2D;
-import java.awt.Point;
+import model.Point;
 import java.awt.Polygon;
 import model.interfaces.IShape;
 import view.interfaces.DrawStrategy;
@@ -20,8 +20,8 @@ public class TriangleDrawer implements DrawStrategy {
     int[] xDim = new int[3];
     int[] yDim = new int[3];
 
-    int x = start.x;
-    int y = start.y;
+    int x = start.getX();
+    int y = start.getY();
 
     xDim[0] = x;
     xDim[1] = x + (width / 2);

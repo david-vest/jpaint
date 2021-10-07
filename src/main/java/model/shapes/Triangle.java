@@ -1,7 +1,7 @@
 package model.shapes;
 
 import java.awt.Graphics2D;
-import java.awt.Point;
+import model.Point;
 import model.ShapeType;
 import model.interfaces.UserChoices;
 import view.draw.TriangleDrawer;

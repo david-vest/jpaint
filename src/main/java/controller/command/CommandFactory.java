@@ -2,7 +2,7 @@ package controller.command;
 
 import controller.interfaces.ICommand;
 import controller.interfaces.ICommandFactory;
-import java.awt.Point;
+import model.Point;
 import model.commands.CreateShapeCommand;
 import model.commands.MoveShapesCommand;
 import model.commands.SelectShapesCommand;

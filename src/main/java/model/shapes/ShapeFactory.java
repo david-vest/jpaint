@@ -1,6 +1,6 @@
 package model.shapes;
 
-import java.awt.Point;
+import model.Point;
 import model.interfaces.IShape;
 import model.interfaces.UserChoices;
 

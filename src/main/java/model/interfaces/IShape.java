@@ -2,7 +2,7 @@ package model.interfaces;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
+import model.Point;
 import model.ShapeType;
 
 /**
@@ -22,4 +22,7 @@ public interface IShape {
   void setStart(Point p);
   void setEnd(Point p);
   void draw(Graphics2D graphics2D);
+  boolean isSelected();
+  void setSelected(boolean isSelected);
+  IBoundingBox getBBox();
 }

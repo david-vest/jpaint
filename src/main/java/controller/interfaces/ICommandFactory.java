@@ -1,6 +1,7 @@
 package controller.interfaces;
 
-import java.awt.Point;
+
+import model.Point;
 
 public interface ICommandFactory {
   ICommand makeDrawCommand(Point start, Point end);

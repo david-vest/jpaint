@@ -1,10 +1,10 @@
 package model.commands;
 
+import model.Point;
 import model.shapes.ShapeList;
 import controller.command.CommandHistory;
 import controller.interfaces.ICommand;
 import controller.interfaces.Undoable;
-import java.awt.Point;
 import model.interfaces.IShape;
 import model.interfaces.UserChoices;
 import model.shapes.ShapeFactory;

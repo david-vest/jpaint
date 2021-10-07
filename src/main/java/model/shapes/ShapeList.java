@@ -1,5 +1,6 @@
 package model.shapes;
 
+import java.util.function.Consumer;
 import model.interfaces.IShape;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -38,6 +39,10 @@ public class ShapeList implements IShapeList {
   @Override
   public IShape get(int index) {
     return shapeContainer.get(index);
+  }
+
+  public ArrayList<IShape> getList() {
+    return shapeContainer;
   }
 
   public void draw(Graphics2D graphics2D) {

@@ -2,11 +2,13 @@ package model.commands;
 
 import controller.interfaces.ICommand;
 import controller.interfaces.Undoable;
-import java.awt.Point;
+import model.Point;
+import model.BoundingBox;
+import model.interfaces.IBoundingBox;
 import model.interfaces.UserChoices;
 import model.shapes.ShapeList;
 
-public class SelectShapesCommand implements ICommand, Undoable {
+public class SelectShapesCommand implements ICommand {
 
   private final UserChoices state;
   private final ShapeList shapeList;
@@ -23,17 +25,13 @@ public class SelectShapesCommand implements ICommand, Undoable {
 
   @Override
   public void execute() {
-    System.out.println("Selecting shapes...");
+    IBoundingBox selectingBox = new BoundingBox(start, end);
 
-  }
-
-  @Override
-  public void undo() {
-
-  }
-
-  @Override
-  public void redo() {
-
+    shapeList.getList().forEach((s) -> {
+      s.setSelected(false);
+      if (selectingBox.doesCollide(s.getBBox())) {
+        s.setSelected(true);
+      }
+    });
   }
 }

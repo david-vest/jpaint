@@ -9,6 +9,6 @@ public class RectangleDrawer implements DrawStrategy {
   @Override
   public void draw(Graphics2D graphics2D, IShape shape) {
     graphics2D.setColor(shape.getPrimaryColor());
-    graphics2D.fillRect(shape.getStart().x, shape.getStart().y, shape.getWidth(), shape.getHeight());
+    graphics2D.fillRect(shape.getStart().getX(), shape.getStart().getY(), shape.getWidth(), shape.getHeight());
   }
 }

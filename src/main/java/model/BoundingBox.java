@@ -1,10 +1,6 @@
 package model;
 
-import java.awt.Point;
 import model.interfaces.IBoundingBox;
-import model.interfaces.IShape;
-import model.shapes.SelectedShapeList;
-import model.shapes.ShapeList;
 
 public class BoundingBox implements IBoundingBox {
   private Point start;
@@ -13,8 +9,9 @@ public class BoundingBox implements IBoundingBox {
   private int height;
 
   public BoundingBox(Point start, Point end) {
-    this.start = start;
-    this.end = end;
+    Point[] points = Point.normalizePoints(start, end);
+    this.start = points[0];
+    this.end = points[1];
     this.width = getWidth();
     this.height = getHeight();
   }
@@ -31,27 +28,17 @@ public class BoundingBox implements IBoundingBox {
 
   @Override
   public int getWidth() {
-    return end.x - start.x;
+    return end.getX() - start.getX();
   }
 
   @Override
   public int getHeight() {
-    return end.y - start.y;
+    return end.getY() - start.getY();
   }
 
   @Override
-  public boolean doesCollide(ShapeList shapeList) {
-    for (int i = 0; i < shapeList.size(); i++) {
-      IShape shape = shapeList.get(i);
-
-      if (this.start.x > shape.getStart().x && this.start.x < shape.getEnd().x) {
-        if (this.start.y > shape.getStart().y && this.start.y < shape.getEnd().y) {
-          System.out.println("Selection collides");
-          return true;
-        }
-      }
-
-    }
-    return false;
+  public boolean doesCollide(IBoundingBox box) {
+    return this.getStart().getX() < box.getEnd().getX() && this.getEnd().getX() > box.getStart().getX()
+        && this.getStart().getY() < box.getEnd().getY() && this.getEnd().getY() > box.getStart().getY();
   }
 }

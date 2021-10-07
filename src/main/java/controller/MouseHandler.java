@@ -1,9 +1,9 @@
 package controller;
 
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import model.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,13 +26,13 @@ public class MouseHandler extends MouseAdapter {
   @Override
   public void mousePressed(MouseEvent e) {
     log.debug("Start " + e.getX() + " " + e.getY());
-    startPoint = e.getPoint();
+    startPoint = new Point(e.getX(), e.getY());
   }
 
   @Override
   public void mouseReleased(MouseEvent e) {
     log.debug("End " + e.getX() + " " + e.getY());
-    endPoint = e.getPoint();
+    endPoint = new Point(e.getX(), e.getY());
     controller.onDraw(startPoint, endPoint);
   }
 
