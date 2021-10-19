@@ -6,6 +6,10 @@ import java.awt.Polygon;
 import model.interfaces.IShape;
 import view.interfaces.DrawStrategy;
 
+/**
+ * @see view.interfaces.DrawStrategy
+ */
+
 public class TriangleDrawer implements DrawStrategy {
 
   @Override

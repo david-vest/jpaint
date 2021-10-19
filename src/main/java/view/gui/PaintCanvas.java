@@ -24,11 +24,6 @@ public class PaintCanvas extends JComponent {
     }
 
     @Override
-    /**
-     * This is an event handler.  If this function gets called, its time to
-     * draw the entire shapeList.
-     * It you want to force a paint event, call aPaintCanvas.repaint()
-     */
     public void paintComponent(Graphics graphics) {
         Graphics2D graphics2d = (Graphics2D) graphics;
         shapeList.draw(graphics2d);

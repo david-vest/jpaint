@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import model.Point;
 import model.ShapeType;
+import view.interfaces.DrawStrategy;
 
 /**
  *  IShape is responsible for holding a drawn shape's data.
@@ -18,9 +19,9 @@ public interface IShape {
   ShapeType getShapeType();
   int getWidth();
   int getHeight();
-  void normalizePoints();
   void setStart(Point p);
   void setEnd(Point p);
+  DrawStrategy getStrategy();
   void draw(Graphics2D graphics2D);
   boolean isSelected();
   void setSelected(boolean isSelected);

@@ -4,6 +4,10 @@ import java.awt.Graphics2D;
 import model.interfaces.IShape;
 import view.interfaces.DrawStrategy;
 
+/**
+ * @see view.interfaces.DrawStrategy
+ */
+
 public class RectangleDrawer implements DrawStrategy {
 
   @Override

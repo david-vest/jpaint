@@ -7,13 +7,17 @@ import model.commands.CreateShapeCommand;
 import model.commands.MoveShapesCommand;
 import model.commands.SelectShapesCommand;
 import model.interfaces.UserChoices;
-import model.persistence.UserChoicesImpl;
 import model.shapes.ShapeList;
+
+/**
+ * CommandFactory is a factory method that instantiates a new ICommand depending on the current mouse
+ * mode
+ */
 
 public class CommandFactory implements ICommandFactory {
 
-  private UserChoices state;
-  private ShapeList shapeList;
+  private final UserChoices state;
+  private final ShapeList shapeList;
 
   public CommandFactory(UserChoices state, ShapeList shapeList) {
     this.state = state;

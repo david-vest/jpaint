@@ -35,9 +35,4 @@ public class MouseHandler extends MouseAdapter {
     endPoint = new Point(e.getX(), e.getY());
     controller.onDraw(startPoint, endPoint);
   }
-
-  @Override
-    public void mouseClicked(MouseEvent e) {
-    log.debug("Mouse clicked at " + e.getX() + " " + e.getY());
-  }
 }

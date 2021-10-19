@@ -22,7 +22,7 @@ public class Main {
         UiModule uiModule = new Gui(guiWindow);
         UserChoicesImpl appState = new UserChoicesImpl(uiModule);
         CommandFactory commandFactory = new CommandFactory(appState, shapeList);
-        CommandController commandController = new CommandController(appState, commandFactory, paintCanvas);
+        CommandController commandController = new CommandController(commandFactory, paintCanvas);
 
         EventConnector controller = new EventConnectorImpl(uiModule, appState, commandController);
         KeyboardInterface keys = new KeyboardInterface(paintCanvas, appState);

@@ -1,13 +1,13 @@
 package model.commands;
 
 import model.Point;
+import model.shapes.Shape;
 import model.shapes.ShapeList;
 import controller.command.CommandHistory;
 import controller.interfaces.ICommand;
 import controller.interfaces.Undoable;
 import model.interfaces.IShape;
 import model.interfaces.UserChoices;
-import model.shapes.ShapeFactory;
 
 /**
  * CreateShapeCommand gets a shape instance and renders the shape.
@@ -31,7 +31,7 @@ public class CreateShapeCommand implements ICommand, Undoable {
 
   @Override
   public void execute() {
-    shape = ShapeFactory.createShape(state, start, end);
+    shape = new Shape(state, start, end);
     shapeList.add(shape);
     CommandHistory.add(this);
   }

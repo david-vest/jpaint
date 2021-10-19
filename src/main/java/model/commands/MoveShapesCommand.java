@@ -8,19 +8,18 @@ import model.interfaces.IShape;
 import model.interfaces.UserChoices;
 import model.shapes.ShapeList;
 
+/**
+ * MoveShapesCommand is an ICommand that takes all selected shapes and moves them depending on the delta between the
+ * start and end Points
+ */
+
 public class MoveShapesCommand implements ICommand, Undoable {
 
-  private final UserChoices state;
   private final ShapeList shapeList;
-  private final Point start;
-  private final Point end;
   private final Point delta;
 
   public MoveShapesCommand(UserChoices state, ShapeList shapeList, Point start, Point end) {
-    this.state = state;
     this.shapeList = shapeList;
-    this.start = start;
-    this.end = end;
     this.delta = new Point(end.getX() - start.getX(), end.getY() - start.getY());
     CommandHistory.add(this);
   }

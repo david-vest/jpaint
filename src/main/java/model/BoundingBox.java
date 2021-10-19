@@ -2,6 +2,10 @@ package model;
 
 import model.interfaces.IBoundingBox;
 
+/**
+ * @see model.interfaces.IBoundingBox
+ */
+
 public class BoundingBox implements IBoundingBox {
   private Point start;
   private Point end;
@@ -24,6 +28,16 @@ public class BoundingBox implements IBoundingBox {
   @Override
   public Point getEnd() {
     return end;
+  }
+
+  @Override
+  public void setStart(Point s) {
+    this.start = s;
+  }
+
+  @Override
+  public void setEnd(Point e) {
+    this.end = e;
   }
 
   @Override

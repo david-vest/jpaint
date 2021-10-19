@@ -10,45 +10,44 @@ import model.ShapeColor;
 import model.ShapeShadingType;
 import model.ShapeType;
 import model.interfaces.UserChoices;
+import view.draw.EllipseDrawer;
+import view.draw.RectangleDrawer;
+import view.draw.TriangleDrawer;
 import view.interfaces.DrawStrategy;
 
 /**
  * @see model.interfaces.IShape
  */
 
-public abstract class Shape implements IShape {
+public class Shape implements IShape {
 
-  private Point start;
-  private Point end;
   private final ShapeColor primary;
   private final ShapeColor secondary;
   private final ShapeShadingType shading;
   private final ShapeType type;
-  protected DrawStrategy drawStrategy;
-  private BoundingBox boundingBox;
+  private final DrawStrategy drawStrategy;
+  private final BoundingBox boundingBox;
   private boolean selected;
 
   public Shape(UserChoices state, Point start, Point end) {
     Point[] points = Point.normalizePoints(start, end);
-    this.start = points[0];
-    this.end = points[1];
+    this.boundingBox = new BoundingBox(points[0],points[1]);
     this.primary = state.getActivePrimaryColor();
     this.secondary = state.getActiveSecondaryColor();
     this.shading = state.getActiveShapeShadingType();
     this.type = state.getActiveShapeType();
     this.selected = false;
-
-    this.boundingBox = new BoundingBox(this.start, this.end);
+    this.drawStrategy = getStrategy();
   }
 
   @Override
   public Point getStart() {
-    return start;
+    return boundingBox.getStart();
   }
 
   @Override
   public Point getEnd() {
-    return end;
+    return boundingBox.getEnd();
   }
 
   @Override
@@ -57,43 +56,45 @@ public abstract class Shape implements IShape {
   }
 
   @Override
-  public ShapeType getShapeType() { return type; }
+  public final ShapeType getShapeType() { return type; }
 
   @Override
   public int getWidth() {
 
-    return end.getX() - start.getX();
+    return this.getEnd().getX() - this.getStart().getX();
   }
 
   @Override
   public int getHeight() {
-
-    return end.getY() - start.getY();
-  }
-
-  @Override
-  public void normalizePoints() {
-    int x1 = Math.min(start.getX(), end.getX());
-    int x2 = Math.max(start.getX(), end.getX());
-    int y1 = Math.min(start.getY(), end.getY());
-    int y2 = Math.max(start.getY(), end.getY());
-
-    start = new Point(x1, y1);
-    end = new Point(x2, y2);
+    return this.getEnd().getY() - this.getStart().getY();
   }
 
   @Override
   public void setStart(Point p) {
-    this.start = p;
+    this.boundingBox.setStart(p);
   }
 
   @Override
   public void setEnd(Point p) {
-    this.end = p;
+    this.boundingBox.setEnd(p);
+  }
+
+  @Override
+  public DrawStrategy getStrategy() {
+    switch (type) {
+      case RECTANGLE:
+        return new RectangleDrawer();
+      case ELLIPSE:
+        return new EllipseDrawer();
+      case TRIANGLE:
+        return new TriangleDrawer();
+    }
+    return null;
   }
 
   @Override
   public void draw(Graphics2D graphics2D) {
+    drawStrategy.draw(graphics2D, this);
   }
 
   @Override
@@ -107,7 +108,7 @@ public abstract class Shape implements IShape {
   }
 
   @Override
-  public IBoundingBox getBBox(){
+  public final IBoundingBox getBBox(){
     return boundingBox;
   }
 }

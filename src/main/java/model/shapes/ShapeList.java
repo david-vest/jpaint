@@ -1,6 +1,5 @@
 package model.shapes;
 
-import java.util.function.Consumer;
 import model.interfaces.IShape;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -29,11 +28,6 @@ public class ShapeList implements IShapeList {
       throw new EmptyStackException();
     }
     shapeContainer.remove(shape);
-  }
-
-  @Override
-  public int size() {
-    return shapeContainer.size();
   }
 
   @Override
