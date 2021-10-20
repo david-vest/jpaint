@@ -1,6 +1,7 @@
 package model.commands;
 
 import model.Point;
+import model.interfaces.IBoundingBox;
 import model.shapes.Shape;
 import model.shapes.ShapeList;
 import controller.command.CommandHistory;
@@ -17,21 +18,19 @@ public class CreateShapeCommand implements ICommand, Undoable {
 
   private final ShapeList shapeList;
   private final UserChoices state;
-  private final Point start;
-  private final Point end;
+  private final IBoundingBox box;
   private IShape shape;
 
-  public CreateShapeCommand(UserChoices state, ShapeList shapeList, Point start, Point end){
+  public CreateShapeCommand(UserChoices state, ShapeList shapeList, IBoundingBox box){
     this.state = state;
     this.shapeList = shapeList;
-    this.start = start;
-    this.end = end;
+    this.box = box;
     this.shape = null;
   }
 
   @Override
   public void execute() {
-    shape = new Shape(state, start, end);
+    shape = new Shape(state, box);
     shapeList.add(shape);
     CommandHistory.add(this);
   }

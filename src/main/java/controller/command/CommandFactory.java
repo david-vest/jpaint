@@ -2,6 +2,7 @@ package controller.command;
 
 import controller.interfaces.ICommand;
 import controller.interfaces.ICommandFactory;
+import model.BoundingBox;
 import model.Point;
 import model.commands.CreateShapeCommand;
 import model.commands.MoveShapesCommand;
@@ -27,13 +28,15 @@ public class CommandFactory implements ICommandFactory {
   @Override
   public ICommand makeDrawCommand(Point start, Point end) {
 
+    BoundingBox box = new BoundingBox(start, end);
+
     switch (state.getActiveMouseMode()) {
       case DRAW:
-        return new CreateShapeCommand(state, shapeList, start, end);
+        return new CreateShapeCommand(state, shapeList, box);
       case SELECT:
-        return new SelectShapesCommand(state, shapeList, start, end);
+        return new SelectShapesCommand(shapeList, box);
       case MOVE:
-        return new MoveShapesCommand(state, shapeList, start, end);
+        return new MoveShapesCommand(shapeList, box);
     }
     return null;
   }

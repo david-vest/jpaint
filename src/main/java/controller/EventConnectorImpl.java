@@ -1,5 +1,6 @@
 package controller;
 
+import controller.command.CommandController;
 import model.interfaces.UserChoices;
 import view.EventName;
 import view.interfaces.UiModule;

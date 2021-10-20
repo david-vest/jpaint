@@ -23,18 +23,15 @@ public class Shape implements IShape {
 
   private final ShapeColor primary;
   private final ShapeColor secondary;
-  private final ShapeShadingType shading;
   private final ShapeType type;
   private final DrawStrategy drawStrategy;
-  private final BoundingBox boundingBox;
+  private final IBoundingBox boundingBox;
   private boolean selected;
 
-  public Shape(UserChoices state, Point start, Point end) {
-    Point[] points = Point.normalizePoints(start, end);
-    this.boundingBox = new BoundingBox(points[0],points[1]);
+  public Shape(UserChoices state, IBoundingBox box) {
+    this.boundingBox = box;
     this.primary = state.getActivePrimaryColor();
     this.secondary = state.getActiveSecondaryColor();
-    this.shading = state.getActiveShapeShadingType();
     this.type = state.getActiveShapeType();
     this.selected = false;
     this.drawStrategy = getStrategy();
@@ -53,6 +50,11 @@ public class Shape implements IShape {
   @Override
   public Color getPrimaryColor() {
     return primary.get();
+  }
+
+  @Override
+  public Color getSecondaryColor() {
+    return secondary.get();
   }
 
   @Override

@@ -4,6 +4,7 @@ import controller.interfaces.ICommand;
 import model.Point;
 import model.BoundingBox;
 import model.interfaces.IBoundingBox;
+import model.interfaces.IShapeList;
 import model.interfaces.UserChoices;
 import model.shapes.ShapeList;
 
@@ -14,25 +15,14 @@ import model.shapes.ShapeList;
 
 public class SelectShapesCommand implements ICommand {
 
-  private final ShapeList shapeList;
-  private final Point start;
-  private final Point end;
+  private final IBoundingBox box;
+  private final IShapeList shapeList;
 
-  public SelectShapesCommand(UserChoices state, ShapeList shapeList, Point start, Point end) {
+  public SelectShapesCommand(IShapeList shapeList, IBoundingBox box) {
+    this.box = box;
     this.shapeList = shapeList;
-    this.start = start;
-    this.end = end;
   }
 
   @Override
-  public void execute() {
-    IBoundingBox selectingBox = new BoundingBox(start, end);
-
-    shapeList.getList().forEach((s) -> {
-      s.setSelected(false);
-      if (selectingBox.doesCollide(s.getBBox())) {
-        s.setSelected(true);
-      }
-    });
-  }
+  public void execute() { shapeList.select(box); }
 }

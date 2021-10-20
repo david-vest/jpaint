@@ -4,6 +4,7 @@ import controller.command.CommandHistory;
 import controller.interfaces.ICommand;
 import controller.interfaces.Undoable;
 import model.Point;
+import model.interfaces.IBoundingBox;
 import model.interfaces.IShape;
 import model.interfaces.UserChoices;
 import model.shapes.ShapeList;
@@ -16,32 +17,33 @@ import model.shapes.ShapeList;
 public class MoveShapesCommand implements ICommand, Undoable {
 
   private final ShapeList shapeList;
-  private final Point delta;
+  private final IBoundingBox box;
+  private int deltaX;
+  private int deltaY;
 
-  public MoveShapesCommand(UserChoices state, ShapeList shapeList, Point start, Point end) {
+  //TODO: Fix MoveShapes
+  public MoveShapesCommand(ShapeList shapeList, IBoundingBox box) {
     this.shapeList = shapeList;
-    this.delta = new Point(end.getX() - start.getX(), end.getY() - start.getY());
+    this.box = box;
+    this.deltaX = box.getEnd().getX() - box.getStart().getX();
+    this.deltaY = box.getEnd().getY() - box.getStart().getY();
     CommandHistory.add(this);
   }
 
   @Override
   public void execute() {
-    shapeList.getList().stream().filter(IShape::isSelected).forEach((s) -> {
-      Point newStart = new Point(s.getStart().getX() + delta.getX(), s.getStart().getY() + delta.getY());
-      Point newEnd = new Point(s.getEnd().getX() + delta.getX(), s.getEnd().getY() + delta.getY());
-      s.setStart(newStart);
-      s.setEnd(newEnd);
-    });
+    for (IShape shape : shapeList.getSelected()) {
+      shape.setStart(new Point(shape.getStart().getX() + deltaX, shape.getStart().getY() + deltaY));
+      shape.setEnd(new Point(shape.getEnd().getX() + deltaX, shape.getEnd().getY() + deltaY));
+    }
   }
 
   @Override
   public void undo() {
-    shapeList.getList().stream().filter(IShape::isSelected).forEach((s) -> {
-      Point newStart = new Point(s.getStart().getX() - delta.getX(), s.getStart().getY() - delta.getY());
-      Point newEnd = new Point(s.getEnd().getX() - delta.getX(), s.getEnd().getY() - delta.getY());
-      s.setStart(newStart);
-      s.setEnd(newEnd);
-    });
+    for (IShape shape : shapeList.getSelected()) {
+      shape.setStart(new Point(shape.getStart().getX() - deltaX, shape.getStart().getY() - deltaY));
+      shape.setEnd(new Point(shape.getEnd().getX() - deltaX, shape.getEnd().getY() - deltaY));
+    }
   }
 
   @Override

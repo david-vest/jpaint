@@ -1,6 +1,6 @@
 package main;
 
-import controller.CommandController;
+import controller.command.CommandController;
 import controller.EventConnector;
 import controller.EventConnectorImpl;
 import controller.KeyboardInterface;

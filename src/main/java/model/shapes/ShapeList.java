@@ -1,5 +1,6 @@
 package model.shapes;
 
+import model.interfaces.IBoundingBox;
 import model.interfaces.IShape;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import model.interfaces.IShapeList;
 public class ShapeList implements IShapeList {
 
   private final ArrayList<IShape> shapeContainer = new ArrayList<>();
+  private final ArrayList<IShape> selected = new ArrayList<>();
 
   public ShapeList() {
   }
@@ -28,6 +30,23 @@ public class ShapeList implements IShapeList {
       throw new EmptyStackException();
     }
     shapeContainer.remove(shape);
+  }
+
+  @Override
+  public void select(IBoundingBox box) {
+    selected.clear();
+
+    shapeContainer.forEach((s) -> {
+      s.setSelected(false);
+      if (box.doesCollide(s.getBBox())) {
+        s.setSelected(true);
+      }
+    });
+  }
+
+  @Override
+  public ArrayList<IShape> getSelected() {
+    return selected;
   }
 
   @Override

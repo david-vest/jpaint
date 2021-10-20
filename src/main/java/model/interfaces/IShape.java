@@ -16,6 +16,7 @@ public interface IShape {
   Point getStart();
   Point getEnd();
   Color getPrimaryColor();
+  Color getSecondaryColor();
   ShapeType getShapeType();
   int getWidth();
   int getHeight();
