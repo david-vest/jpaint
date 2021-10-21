@@ -1,12 +1,8 @@
 package model.commands;
 
 import controller.interfaces.ICommand;
-import model.Point;
-import model.BoundingBox;
 import model.interfaces.IBoundingBox;
 import model.interfaces.IShapeList;
-import model.interfaces.UserChoices;
-import model.shapes.ShapeList;
 
 /**
  * SelectShapesCommand is an ICommand that selects each shape that collides with the drawn BoundingBox
@@ -21,6 +17,7 @@ public class SelectShapesCommand implements ICommand {
   public SelectShapesCommand(IShapeList shapeList, IBoundingBox box) {
     this.box = box;
     this.shapeList = shapeList;
+    this.box.normalize();
   }
 
   @Override

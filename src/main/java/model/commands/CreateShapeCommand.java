@@ -26,6 +26,7 @@ public class CreateShapeCommand implements ICommand, Undoable {
     this.shapeList = shapeList;
     this.box = box;
     this.shape = null;
+    this.box.normalize();
   }
 
   @Override

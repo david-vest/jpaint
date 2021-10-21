@@ -21,28 +21,26 @@ public class MoveShapesCommand implements ICommand, Undoable {
   private int deltaX;
   private int deltaY;
 
-  //TODO: Fix MoveShapes
   public MoveShapesCommand(ShapeList shapeList, IBoundingBox box) {
     this.shapeList = shapeList;
     this.box = box;
     this.deltaX = box.getEnd().getX() - box.getStart().getX();
     this.deltaY = box.getEnd().getY() - box.getStart().getY();
+    System.out.println("Delta X: " + deltaX + " Delta Y: " + deltaY);
     CommandHistory.add(this);
   }
 
   @Override
   public void execute() {
     for (IShape shape : shapeList.getSelected()) {
-      shape.setStart(new Point(shape.getStart().getX() + deltaX, shape.getStart().getY() + deltaY));
-      shape.setEnd(new Point(shape.getEnd().getX() + deltaX, shape.getEnd().getY() + deltaY));
+      shape.move(deltaX, deltaY);
     }
   }
 
   @Override
   public void undo() {
     for (IShape shape : shapeList.getSelected()) {
-      shape.setStart(new Point(shape.getStart().getX() - deltaX, shape.getStart().getY() - deltaY));
-      shape.setEnd(new Point(shape.getEnd().getX() - deltaX, shape.getEnd().getY() - deltaY));
+      shape.move(-deltaX, -deltaY);
     }
   }
 

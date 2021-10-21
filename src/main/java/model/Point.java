@@ -23,17 +23,8 @@ public class Point {
 
   public void setY(int y) { this.y = y; }
 
-  public static Point[] normalizePoints(Point start, Point end) {
-    int x1 = Math.min(start.getX(), end.getX());
-    int x2 = Math.max(start.getX(), end.getX());
-    int y1 = Math.min(start.getY(), end.getY());
-    int y2 = Math.max(start.getY(), end.getY());
-
-    Point[] normalizedPoints = new Point[2];
-
-    normalizedPoints[0] = new Point(x1, y1);
-    normalizedPoints[1] = new Point(x2, y2);
-
-    return normalizedPoints;
+  @Override
+  public String toString(){
+    return "Point(" + x + "," + y + ")";
   }
 }

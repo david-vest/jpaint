@@ -1,13 +1,11 @@
 package model.shapes;
 
 import java.awt.Graphics2D;
-import model.BoundingBox;
 import model.interfaces.IBoundingBox;
 import model.interfaces.IShape;
 import java.awt.Color;
 import model.Point;
 import model.ShapeColor;
-import model.ShapeShadingType;
 import model.ShapeType;
 import model.interfaces.UserChoices;
 import view.draw.EllipseDrawer;
@@ -25,7 +23,7 @@ public class Shape implements IShape {
   private final ShapeColor secondary;
   private final ShapeType type;
   private final DrawStrategy drawStrategy;
-  private final IBoundingBox boundingBox;
+  private IBoundingBox boundingBox;
   private boolean selected;
 
   public Shape(UserChoices state, IBoundingBox box) {
@@ -107,6 +105,11 @@ public class Shape implements IShape {
   @Override
   public void setSelected(boolean isSelected) {
     this.selected = isSelected;
+  }
+
+  @Override
+  public void move(int x, int y) {
+    boundingBox.move(x, y);
   }
 
   @Override

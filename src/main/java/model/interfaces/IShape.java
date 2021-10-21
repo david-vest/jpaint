@@ -26,5 +26,6 @@ public interface IShape {
   void draw(Graphics2D graphics2D);
   boolean isSelected();
   void setSelected(boolean isSelected);
+  void move(int x, int y);
   IBoundingBox getBBox();
 }

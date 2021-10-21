@@ -1,5 +1,6 @@
-package model;
+package model.shapes;
 
+import model.Point;
 import model.interfaces.IBoundingBox;
 
 /**
@@ -13,11 +14,23 @@ public class BoundingBox implements IBoundingBox {
   private int height;
 
   public BoundingBox(Point start, Point end) {
-    Point[] points = Point.normalizePoints(start, end);
-    this.start = points[0];
-    this.end = points[1];
+    this.start = start;
+    this.end = end;
     this.width = getWidth();
     this.height = getHeight();
+  }
+
+  @Override
+  public void normalize(){
+    int x1 = Math.min(start.getX(), end.getX());
+    int x2 = Math.max(start.getX(), end.getX());
+    int y1 = Math.min(start.getY(), end.getY());
+    int y2 = Math.max(start.getY(), end.getY());
+
+    Point[] normalizedPoints = new Point[2];
+
+    start = new Point(x1, y1);
+    end = new Point(x2, y2);
   }
 
   @Override
@@ -48,6 +61,14 @@ public class BoundingBox implements IBoundingBox {
   @Override
   public int getHeight() {
     return end.getY() - start.getY();
+  }
+
+  @Override
+  public void move(int x, int y) {
+    System.out.println("Starting: " + start.toString() + " End: " + end.toString());
+    start = new Point(start.getX() + x, start.getY() + y);
+    end = new Point(end.getX() + x, end.getY() + y);
+    System.out.println("Starting: " + start.toString() + " End: " + end.toString());
   }
 
   @Override

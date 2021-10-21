@@ -40,6 +40,8 @@ public class ShapeList implements IShapeList {
       s.setSelected(false);
       if (box.doesCollide(s.getBBox())) {
         s.setSelected(true);
+        selected.add(s);
+        System.out.println("Selected shape");
       }
     });
   }
