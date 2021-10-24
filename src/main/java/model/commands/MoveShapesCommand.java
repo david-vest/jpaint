@@ -3,10 +3,8 @@ package model.commands;
 import controller.command.CommandHistory;
 import controller.interfaces.ICommand;
 import controller.interfaces.Undoable;
-import model.Point;
 import model.interfaces.IBoundingBox;
 import model.interfaces.IShape;
-import model.interfaces.UserChoices;
 import model.shapes.ShapeList;
 
 /**
@@ -17,16 +15,13 @@ import model.shapes.ShapeList;
 public class MoveShapesCommand implements ICommand, Undoable {
 
   private final ShapeList shapeList;
-  private final IBoundingBox box;
-  private int deltaX;
-  private int deltaY;
+  private final int deltaX;
+  private final int deltaY;
 
   public MoveShapesCommand(ShapeList shapeList, IBoundingBox box) {
     this.shapeList = shapeList;
-    this.box = box;
     this.deltaX = box.getEnd().getX() - box.getStart().getX();
     this.deltaY = box.getEnd().getY() - box.getStart().getY();
-    System.out.println("Delta X: " + deltaX + " Delta Y: " + deltaY);
     CommandHistory.add(this);
   }
 

@@ -22,7 +22,6 @@ public interface IShape {
   int getHeight();
   void setStart(Point p);
   void setEnd(Point p);
-  DrawStrategy getStrategy();
   void draw(Graphics2D graphics2D);
   boolean isSelected();
   void setSelected(boolean isSelected);

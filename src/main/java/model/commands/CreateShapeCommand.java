@@ -1,8 +1,8 @@
 package model.commands;
 
-import model.Point;
+import controller.ShapeBuilder;
+import java.awt.Color;
 import model.interfaces.IBoundingBox;
-import model.shapes.Shape;
 import model.shapes.ShapeList;
 import controller.command.CommandHistory;
 import controller.interfaces.ICommand;
@@ -18,20 +18,30 @@ public class CreateShapeCommand implements ICommand, Undoable {
 
   private final ShapeList shapeList;
   private final UserChoices state;
-  private final IBoundingBox box;
+  private final IBoundingBox bbox;
   private IShape shape;
 
   public CreateShapeCommand(UserChoices state, ShapeList shapeList, IBoundingBox box){
     this.state = state;
     this.shapeList = shapeList;
-    this.box = box;
+    this.bbox = box;
     this.shape = null;
-    this.box.normalize();
+    this.bbox.normalize();
   }
 
   @Override
   public void execute() {
-    shape = new Shape(state, box);
+    ShapeBuilder shapeBuilder = new ShapeBuilder();
+    Color primaryColor = state.getActivePrimaryColor().get();
+    Color secondaryColor = state.getActiveSecondaryColor().get();
+    shapeBuilder
+        .setBBox(bbox)
+            .setFillColor(primaryColor)
+                .setBorderColor(secondaryColor)
+                    .setShapeType(state.getActiveShapeType())
+                        .setShadingType(state.getActiveShapeShadingType());
+
+    shape = shapeBuilder.build();
     shapeList.add(shape);
     CommandHistory.add(this);
   }

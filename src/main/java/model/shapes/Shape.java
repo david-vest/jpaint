@@ -10,8 +10,10 @@ import model.ShapeType;
 import model.interfaces.UserChoices;
 import view.draw.EllipseDrawer;
 import view.draw.RectangleDrawer;
+import view.draw.SelectionDrawer;
 import view.draw.TriangleDrawer;
 import view.interfaces.DrawStrategy;
+import view.interfaces.ShapeDecorator;
 
 /**
  * @see model.interfaces.IShape
@@ -19,20 +21,22 @@ import view.interfaces.DrawStrategy;
 
 public class Shape implements IShape {
 
-  private final ShapeColor primary;
-  private final ShapeColor secondary;
+  private final Color primary;
+  private final Color secondary;
   private final ShapeType type;
   private final DrawStrategy drawStrategy;
+  private ShapeDecorator initialShapeDecorator;
   private IBoundingBox boundingBox;
   private boolean selected;
 
-  public Shape(UserChoices state, IBoundingBox box) {
+  public Shape(IBoundingBox box, Color primary, Color secondary, ShapeType type, DrawStrategy strategy) {
     this.boundingBox = box;
-    this.primary = state.getActivePrimaryColor();
-    this.secondary = state.getActiveSecondaryColor();
-    this.type = state.getActiveShapeType();
+    this.primary = primary;
+    this.secondary = secondary;
+    this.type = type;
     this.selected = false;
-    this.drawStrategy = getStrategy();
+    this.drawStrategy = strategy;
+    this.initialShapeDecorator = strategy.getDecorator();
   }
 
   @Override
@@ -47,12 +51,12 @@ public class Shape implements IShape {
 
   @Override
   public Color getPrimaryColor() {
-    return primary.get();
+    return primary;
   }
 
   @Override
   public Color getSecondaryColor() {
-    return secondary.get();
+    return secondary;
   }
 
   @Override
@@ -60,7 +64,6 @@ public class Shape implements IShape {
 
   @Override
   public int getWidth() {
-
     return this.getEnd().getX() - this.getStart().getX();
   }
 
@@ -80,19 +83,6 @@ public class Shape implements IShape {
   }
 
   @Override
-  public DrawStrategy getStrategy() {
-    switch (type) {
-      case RECTANGLE:
-        return new RectangleDrawer();
-      case ELLIPSE:
-        return new EllipseDrawer();
-      case TRIANGLE:
-        return new TriangleDrawer();
-    }
-    return null;
-  }
-
-  @Override
   public void draw(Graphics2D graphics2D) {
     drawStrategy.draw(graphics2D, this);
   }
@@ -105,6 +95,13 @@ public class Shape implements IShape {
   @Override
   public void setSelected(boolean isSelected) {
     this.selected = isSelected;
+
+    if (selected) {
+      drawStrategy.setDecorator(new SelectionDrawer(drawStrategy.getDecorator()));
+    }
+    else {
+      drawStrategy.setDecorator(initialShapeDecorator);
+    }
   }
 
   @Override

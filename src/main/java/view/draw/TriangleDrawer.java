@@ -1,10 +1,12 @@
 package view.draw;
 
+import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import model.Point;
 import java.awt.Polygon;
 import model.interfaces.IShape;
 import view.interfaces.DrawStrategy;
+import view.interfaces.ShapeDecorator;
 
 /**
  * @see view.interfaces.DrawStrategy
@@ -12,15 +14,34 @@ import view.interfaces.DrawStrategy;
 
 public class TriangleDrawer implements DrawStrategy {
 
-  @Override
-  public void draw(Graphics2D graphics2D, IShape shape) {
-    graphics2D.setColor(shape.getPrimaryColor());
-    int[][] dimensions = getDimensions(shape.getStart(), shape.getWidth(), shape.getHeight());
-    Polygon triangle = new Polygon(dimensions[0], dimensions[1], 3);
-    graphics2D.fillPolygon(triangle);
+  private ShapeDecorator shapeDecorator;
+
+  public TriangleDrawer(ShapeDecorator shapeDecorator) {
+    if (shapeDecorator == null) {
+      this.shapeDecorator = new NullDrawer();
+    }
+    this.shapeDecorator = shapeDecorator;
   }
 
-  private int[][] getDimensions(Point start, int width, int height) {
+  @Override
+  public void draw(Graphics2D graphics2D, IShape shape) {
+    graphics2D.setStroke(new BasicStroke(3));
+    int[][] dimensions = getDimensions(shape.getStart(), shape.getWidth(), shape.getHeight());
+    Polygon triangle = new Polygon(dimensions[0], dimensions[1], 3);
+    shapeDecorator.drawTriangle(graphics2D, shape, triangle);
+  }
+
+  @Override
+  public ShapeDecorator getDecorator() {
+    return shapeDecorator;
+  }
+
+  @Override
+  public void setDecorator(ShapeDecorator decorator) {
+    this.shapeDecorator = decorator;
+  }
+
+  protected static int[][] getDimensions(Point start, int width, int height) {
     int[] xDim = new int[3];
     int[] yDim = new int[3];
 

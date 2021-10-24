@@ -12,4 +12,6 @@ import model.interfaces.IShape;
 
 public interface DrawStrategy {
   void draw(Graphics2D graphics2D, IShape shape);
+  ShapeDecorator getDecorator();
+  void setDecorator(ShapeDecorator decorator);
 }
