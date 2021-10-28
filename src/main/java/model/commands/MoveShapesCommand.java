@@ -3,6 +3,7 @@ package model.commands;
 import controller.command.CommandHistory;
 import controller.interfaces.ICommand;
 import controller.interfaces.Undoable;
+import java.util.ArrayList;
 import model.interfaces.IBoundingBox;
 import model.interfaces.IShape;
 import model.shapes.ShapeList;
@@ -14,11 +15,13 @@ import model.shapes.ShapeList;
 
 public class MoveShapesCommand implements ICommand, Undoable {
 
+  private ArrayList<IShape> movedShapes;
   private final ShapeList shapeList;
   private final int deltaX;
   private final int deltaY;
 
   public MoveShapesCommand(ShapeList shapeList, IBoundingBox box) {
+    this.movedShapes = new ArrayList<>();
     this.shapeList = shapeList;
     this.deltaX = box.getEnd().getX() - box.getStart().getX();
     this.deltaY = box.getEnd().getY() - box.getStart().getY();
@@ -27,20 +30,25 @@ public class MoveShapesCommand implements ICommand, Undoable {
 
   @Override
   public void execute() {
-    for (IShape shape : shapeList.getSelected()) {
-      shape.move(deltaX, deltaY);
+    for (IShape shape : shapeList.getList()){
+      if (shape.isSelected()) {
+        shape.move(deltaX, deltaY);
+        movedShapes.add(shape);
+      }
     }
   }
 
   @Override
   public void undo() {
-    for (IShape shape : shapeList.getSelected()) {
+    for (IShape shape : movedShapes) {
       shape.move(-deltaX, -deltaY);
     }
   }
 
   @Override
   public void redo() {
-    execute();
+    for (IShape shape: movedShapes) {
+      shape.move(deltaX, deltaY);
+    }
   }
 }

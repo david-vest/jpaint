@@ -20,6 +20,7 @@ dependencies {
     def logbackVersion = '1.2.4'
 
     implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation "commons-lang:commons-lang:2.6"
     implementation "ch.qos.logback:logback-classic:$logbackVersion"
     implementation "ch.qos.logback:logback-core:$logbackVersion"
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"

@@ -1,17 +1,13 @@
 package model.shapes;
 
 import java.awt.Graphics2D;
+import model.ShapeShadingType;
 import model.interfaces.IBoundingBox;
 import model.interfaces.IShape;
 import java.awt.Color;
 import model.Point;
-import model.ShapeColor;
 import model.ShapeType;
-import model.interfaces.UserChoices;
-import view.draw.EllipseDrawer;
-import view.draw.RectangleDrawer;
 import view.draw.SelectionDrawer;
-import view.draw.TriangleDrawer;
 import view.interfaces.DrawStrategy;
 import view.interfaces.ShapeDecorator;
 
@@ -25,18 +21,18 @@ public class Shape implements IShape {
   private final Color secondary;
   private final ShapeType type;
   private final DrawStrategy drawStrategy;
-  private ShapeDecorator initialShapeDecorator;
-  private IBoundingBox boundingBox;
+  private final ShapeDecorator initialShapeDecorator;
+  private final IBoundingBox boundingBox;
   private boolean selected;
 
-  public Shape(IBoundingBox box, Color primary, Color secondary, ShapeType type, DrawStrategy strategy) {
+  public Shape(IBoundingBox box, Color primary, Color secondary, ShapeType type, DrawStrategy drawStrategy) {
     this.boundingBox = box;
     this.primary = primary;
     this.secondary = secondary;
     this.type = type;
     this.selected = false;
-    this.drawStrategy = strategy;
-    this.initialShapeDecorator = strategy.getDecorator();
+    this.drawStrategy = drawStrategy;
+    this.initialShapeDecorator = drawStrategy.getDecorator();
   }
 
   @Override
@@ -88,6 +84,16 @@ public class Shape implements IShape {
   }
 
   @Override
+  public DrawStrategy getDrawStrategy() {
+    return drawStrategy;
+  }
+
+  @Override
+  public ShapeDecorator getShapeDecorator() {
+    return initialShapeDecorator;
+  }
+
+  @Override
   public boolean isSelected() {
     return selected;
   }
@@ -112,5 +118,11 @@ public class Shape implements IShape {
   @Override
   public final IBoundingBox getBBox(){
     return boundingBox;
+  }
+
+  @Override
+  public String toString() {
+    return getPrimaryColor().toString() + " " + getShapeType().toString() + " starting at " +
+        getStart().toString();
   }
 }

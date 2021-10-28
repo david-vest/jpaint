@@ -1,7 +1,8 @@
 package controller.command;
 
 import controller.interfaces.ICommand;
-import controller.interfaces.ICommandFactory;
+import model.commands.CopyShapesCommand;
+import model.commands.PasteShapesCommand;
 import model.shapes.BoundingBox;
 import model.Point;
 import model.commands.CreateShapeCommand;
@@ -15,7 +16,7 @@ import model.shapes.ShapeList;
  * mode
  */
 
-public class CommandFactory implements ICommandFactory {
+public class CommandFactory {
 
   private final UserChoices state;
   private final ShapeList shapeList;
@@ -25,7 +26,6 @@ public class CommandFactory implements ICommandFactory {
     this.shapeList = shapeList;
   }
 
-  @Override
   public ICommand makeDrawCommand(Point start, Point end) {
 
     BoundingBox box = new BoundingBox(start, end);
@@ -38,6 +38,14 @@ public class CommandFactory implements ICommandFactory {
       case MOVE:
         return new MoveShapesCommand(shapeList, box);
     }
-    return null;
+    throw new IllegalStateException("No active mouse mode");
+  }
+
+  public ICommand makeCopyCommand() {
+    return new CopyShapesCommand(shapeList);
+  }
+
+  public ICommand makePasteCommand() {
+    return new PasteShapesCommand(shapeList);
   }
 }

@@ -17,7 +17,7 @@ public class EllipseDrawer implements DrawStrategy {
   public EllipseDrawer(ShapeDecorator shapeDecorator) {
     if (shapeDecorator == null) {
       this.shapeDecorator = new NullDrawer();
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("No ShapeDecorator for Ellipse Drawer");
     }
 
     this.shapeDecorator = shapeDecorator;

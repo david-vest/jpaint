@@ -10,7 +10,7 @@ import model.Point;
 
 public interface IBoundingBox {
   void normalize();
-  model.Point getStart();
+  Point getStart();
   Point getEnd();
   void setStart(Point start);
   void setEnd(Point end);

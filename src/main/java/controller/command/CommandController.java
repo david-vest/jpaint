@@ -1,11 +1,7 @@
 package controller.command;
 
-import controller.command.CommandFactory;
-import controller.command.CommandHistory;
-import controller.interfaces.ICommandFactory;
 import model.Point;
 import controller.interfaces.ICommand;
-import model.interfaces.UserChoices;
 import view.gui.PaintCanvas;
 
 /**
@@ -16,7 +12,7 @@ import view.gui.PaintCanvas;
 public class CommandController {
 
   private final PaintCanvas paintCanvas;
-  private final ICommandFactory commandFactory;
+  private final CommandFactory commandFactory;
 
   public CommandController(CommandFactory commandFactory, PaintCanvas paintCanvas) {
     this.paintCanvas = paintCanvas;
@@ -36,6 +32,17 @@ public class CommandController {
 
   public void onRedo() {
     CommandHistory.redo();
+    paintCanvas.repaint();
+  }
+
+  public void onCopy() {
+    ICommand command = commandFactory.makeCopyCommand();
+    command.execute();
+  }
+
+  public void onPaste() {
+    ICommand command = commandFactory.makePasteCommand();
+    command.execute();
     paintCanvas.repaint();
   }
 }

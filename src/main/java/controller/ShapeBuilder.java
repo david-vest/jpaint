@@ -20,7 +20,7 @@ public class ShapeBuilder {
   private Color primaryColor;
   private Color secondaryColor;
   private ShapeShadingType shadingType;
-
+  private ShapeDecorator shapeDecorator;
   private ShapeType type;
   private IBoundingBox bbox;
 
@@ -50,39 +50,46 @@ public class ShapeBuilder {
     return this;
   }
 
-  public IShape build() {
-    ShapeDecorator shapeDecorator;
-    DrawStrategy drawStrategy;
+  /**Optional */
+  public ShapeBuilder setDecorator(ShapeDecorator decorator) {
+    this.shapeDecorator = decorator;
+    return this;
+  }
 
-    switch (shadingType) {
-      case FILLED_IN:
-        shapeDecorator = new FillDrawer();
-        break;
-      case OUTLINE:
-        shapeDecorator = new BorderDrawer();
-        break;
-      case OUTLINE_AND_FILLED_IN:
-        shapeDecorator = new BorderDrawer(new FillDrawer());
-        break;
-      default:
-        throw new IllegalArgumentException("No shading type");
+  private ShapeDecorator getShapeDecorator() {
+    if (shapeDecorator == null) {
+      switch (shadingType) {
+        case FILLED_IN:
+          return new FillDrawer();
+        case OUTLINE:
+          return new BorderDrawer();
+        case OUTLINE_AND_FILLED_IN:
+          return new BorderDrawer(new FillDrawer());
+        default:
+          throw new IllegalStateException("No shading type");
+      }
     }
+    return shapeDecorator;
+  }
 
-    switch(type) {
+  private DrawStrategy getDrawStrategy() {
+    switch (type) {
       case RECTANGLE:
-        drawStrategy = new RectangleDrawer(shapeDecorator);
-        break;
+        return new RectangleDrawer(shapeDecorator);
       case ELLIPSE:
-        drawStrategy = new EllipseDrawer(shapeDecorator);
-        break;
+        return new EllipseDrawer(shapeDecorator);
       case TRIANGLE:
-        drawStrategy = new TriangleDrawer(shapeDecorator);
-        break;
+        return new TriangleDrawer(shapeDecorator);
       default:
         throw new IllegalArgumentException("No shape type");
     }
-
-    return new Shape(bbox, primaryColor, secondaryColor, type, drawStrategy);
   }
 
+  public IShape build() {
+    DrawStrategy drawStrategy;
+      shapeDecorator = getShapeDecorator();
+      drawStrategy = getDrawStrategy();
+
+      return new Shape(bbox, primaryColor, secondaryColor, type, drawStrategy);
+    }
 }
