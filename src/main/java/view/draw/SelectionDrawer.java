@@ -10,14 +10,15 @@ import model.interfaces.IShape;
 import view.interfaces.ShapeDecorator;
 
 public class SelectionDrawer implements ShapeDecorator {
-  private ShapeDecorator shapeDecorator;
-  private BasicStroke stroke;
+  private final ShapeDecorator shapeDecorator;
+  private final BasicStroke stroke;
   private final int OFFSET = 5;
   private final int LEN_OFFSET = OFFSET * 2;
 
   public SelectionDrawer(ShapeDecorator shapeDecorator) {
     if (shapeDecorator == null) {
       this.shapeDecorator = new NullDrawer();
+      throw new IllegalArgumentException("Null is not allowed. Use empty constructor");
     }
     this.shapeDecorator = shapeDecorator;
     this.stroke = getStroke();
@@ -28,7 +29,8 @@ public class SelectionDrawer implements ShapeDecorator {
     shapeDecorator.drawRectangle(graphics2D, shape);
     graphics2D.setStroke(stroke);
     graphics2D.setColor(Color.darkGray);
-    graphics2D.drawRect(shape.getStart().getX() -OFFSET, shape.getStart().getY() - OFFSET, shape.getWidth() + LEN_OFFSET, shape.getHeight() + LEN_OFFSET);
+    graphics2D.drawRect(shape.getStart().getX() -OFFSET, shape.getStart().getY() - OFFSET,
+        shape.getWidth() + LEN_OFFSET, shape.getHeight() + LEN_OFFSET);
   }
 
   @Override
@@ -46,7 +48,7 @@ public class SelectionDrawer implements ShapeDecorator {
     graphics2D.setStroke(stroke);
     graphics2D.setColor(Color.darkGray);
     Point newPoint = new Point(shape.getStart().getX() - OFFSET, shape.getStart().getY() - OFFSET);
-    int[][] new_dim = TriangleDrawer.getDimensions(newPoint, shape.getWidth() + LEN_OFFSET, shape.getHeight() + LEN_OFFSET);
+    int[][] new_dim = ShapeDrawer.getTrianglePoints(newPoint, shape.getWidth() + LEN_OFFSET, shape.getHeight() + LEN_OFFSET);
     graphics2D.drawPolygon(new Polygon(new_dim[0], new_dim[1], 3));
   }
 

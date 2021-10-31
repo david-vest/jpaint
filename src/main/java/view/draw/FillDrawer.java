@@ -3,9 +3,7 @@ package view.draw;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Ellipse2D.Double;
 import model.interfaces.IShape;
-import view.interfaces.DrawStrategy;
 import view.interfaces.ShapeDecorator;
 
 public class FillDrawer implements ShapeDecorator {
@@ -15,6 +13,7 @@ public class FillDrawer implements ShapeDecorator {
   public FillDrawer(ShapeDecorator shapeDecorator) {
     if (shapeDecorator ==  null) {
       this.shapeDecorator = new NullDrawer();
+      throw new IllegalArgumentException("Null is not allowed. Use empty constructor.");
     }
 
     this.shapeDecorator = shapeDecorator;

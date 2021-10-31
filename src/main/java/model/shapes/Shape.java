@@ -1,7 +1,6 @@
 package model.shapes;
 
 import java.awt.Graphics2D;
-import model.ShapeShadingType;
 import model.interfaces.IBoundingBox;
 import model.interfaces.IShape;
 import java.awt.Color;
@@ -69,23 +68,8 @@ public class Shape implements IShape {
   }
 
   @Override
-  public void setStart(Point p) {
-    this.boundingBox.setStart(p);
-  }
-
-  @Override
-  public void setEnd(Point p) {
-    this.boundingBox.setEnd(p);
-  }
-
-  @Override
   public void draw(Graphics2D graphics2D) {
     drawStrategy.draw(graphics2D, this);
-  }
-
-  @Override
-  public DrawStrategy getDrawStrategy() {
-    return drawStrategy;
   }
 
   @Override

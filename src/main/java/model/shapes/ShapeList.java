@@ -1,8 +1,5 @@
 package model.shapes;
 
-import controller.ShapeBuilder;
-import java.util.stream.Stream;
-import model.Point;
 import model.interfaces.IBoundingBox;
 import model.interfaces.IShape;
 import java.awt.Graphics2D;

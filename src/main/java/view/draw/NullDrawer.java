@@ -3,7 +3,6 @@ package view.draw;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import model.interfaces.IShape;
-import view.interfaces.DrawStrategy;
 import view.interfaces.ShapeDecorator;
 
 public class NullDrawer implements ShapeDecorator {

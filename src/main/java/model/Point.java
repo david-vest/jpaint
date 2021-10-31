@@ -1,7 +1,5 @@
 package model;
 
-import java.io.Serializable;
-
 /**
  * Point holds the x and y points on the PaintCanvas. This class also holds a static method to return
  * an array of two Points for normalization.

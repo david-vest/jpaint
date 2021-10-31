@@ -1,18 +1,14 @@
 package controller;
 
 import java.awt.Color;
-import javax.swing.border.Border;
 import model.ShapeShadingType;
 import model.ShapeType;
 import model.interfaces.IBoundingBox;
 import model.interfaces.IShape;
-import model.shapes.BoundingBox;
 import model.shapes.Shape;
 import view.draw.BorderDrawer;
-import view.draw.EllipseDrawer;
 import view.draw.FillDrawer;
-import view.draw.RectangleDrawer;
-import view.draw.TriangleDrawer;
+import view.draw.ShapeDrawer;
 import view.interfaces.DrawStrategy;
 import view.interfaces.ShapeDecorator;
 
@@ -72,24 +68,11 @@ public class ShapeBuilder {
     return shapeDecorator;
   }
 
-  private DrawStrategy getDrawStrategy() {
-    switch (type) {
-      case RECTANGLE:
-        return new RectangleDrawer(shapeDecorator);
-      case ELLIPSE:
-        return new EllipseDrawer(shapeDecorator);
-      case TRIANGLE:
-        return new TriangleDrawer(shapeDecorator);
-      default:
-        throw new IllegalArgumentException("No shape type");
-    }
-  }
-
   public IShape build() {
     DrawStrategy drawStrategy;
-      shapeDecorator = getShapeDecorator();
-      drawStrategy = getDrawStrategy();
+    shapeDecorator = getShapeDecorator();
+    drawStrategy = new ShapeDrawer(shapeDecorator);
 
-      return new Shape(bbox, primaryColor, secondaryColor, type, drawStrategy);
-    }
+    return new Shape(bbox, primaryColor, secondaryColor, type, drawStrategy);
+  }
 }

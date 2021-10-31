@@ -3,9 +3,7 @@ package view.draw;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.geom.Ellipse2D;
-import javax.swing.border.Border;
 import model.interfaces.IShape;
-import view.interfaces.DrawStrategy;
 import view.interfaces.ShapeDecorator;
 
 public class BorderDrawer implements ShapeDecorator {
@@ -14,9 +12,9 @@ public class BorderDrawer implements ShapeDecorator {
 
   public BorderDrawer(ShapeDecorator shapeDecorator) {
     if (shapeDecorator == null) {
-      this.shapeDecorator = new NullDrawer();
+      throw new IllegalArgumentException("Null is not allowed. Use empty constructor");
     }
-    this.shapeDecorator = shapeDecorator;
+      this.shapeDecorator = shapeDecorator;
   }
 
   public BorderDrawer() {

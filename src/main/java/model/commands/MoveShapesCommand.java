@@ -15,7 +15,7 @@ import model.shapes.ShapeList;
 
 public class MoveShapesCommand implements ICommand, Undoable {
 
-  private ArrayList<IShape> movedShapes;
+  private final ArrayList<IShape> movedShapes;
   private final ShapeList shapeList;
   private final int deltaX;
   private final int deltaY;

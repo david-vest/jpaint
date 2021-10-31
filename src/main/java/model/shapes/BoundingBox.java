@@ -10,14 +10,10 @@ import model.interfaces.IBoundingBox;
 public class BoundingBox implements IBoundingBox {
   private Point start;
   private Point end;
-  private int width;
-  private int height;
 
   public BoundingBox(Point start, Point end) {
     this.start = start;
     this.end = end;
-    this.width = getWidth();
-    this.height = getHeight();
   }
 
   @Override
@@ -26,8 +22,6 @@ public class BoundingBox implements IBoundingBox {
     int x2 = Math.max(start.getX(), end.getX());
     int y1 = Math.min(start.getY(), end.getY());
     int y2 = Math.max(start.getY(), end.getY());
-
-    Point[] normalizedPoints = new Point[2];
 
     start = new Point(x1, y1);
     end = new Point(x2, y2);
@@ -65,10 +59,8 @@ public class BoundingBox implements IBoundingBox {
 
   @Override
   public void move(int x, int y) {
-    System.out.println("Starting: " + start.toString() + " End: " + end.toString());
     start = new Point(start.getX() + x, start.getY() + y);
     end = new Point(end.getX() + x, end.getY() + y);
-    System.out.println("Starting: " + start.toString() + " End: " + end.toString());
   }
 
   @Override
