@@ -10,13 +10,16 @@ public class FillDrawer implements ShapeDecorator {
 
   private ShapeDecorator shapeDecorator;
 
+  /**
+   * Using this constructor might mean that whatever is inside might be hidden by the filled shape
+   */
   public FillDrawer(ShapeDecorator shapeDecorator) {
+    this.shapeDecorator = shapeDecorator;
+
     if (shapeDecorator ==  null) {
       this.shapeDecorator = new NullDrawer();
       throw new IllegalArgumentException("Null is not allowed. Use empty constructor.");
     }
-
-    this.shapeDecorator = shapeDecorator;
   }
 
   public FillDrawer() {

@@ -10,18 +10,19 @@ import model.interfaces.IShape;
 import view.interfaces.ShapeDecorator;
 
 public class SelectionDrawer implements ShapeDecorator {
-  private final ShapeDecorator shapeDecorator;
+  private ShapeDecorator shapeDecorator;
   private final BasicStroke stroke;
   private final int OFFSET = 5;
   private final int LEN_OFFSET = OFFSET * 2;
 
   public SelectionDrawer(ShapeDecorator shapeDecorator) {
-    if (shapeDecorator == null) {
-      this.shapeDecorator = new NullDrawer();
-      throw new IllegalArgumentException("Null is not allowed. Use empty constructor");
-    }
     this.shapeDecorator = shapeDecorator;
     this.stroke = getStroke();
+
+    if (shapeDecorator == null) {
+      this.shapeDecorator = new NullDrawer();
+      throw new IllegalArgumentException("Null is not allowed.");
+    }
   }
 
   @Override

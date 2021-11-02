@@ -11,10 +11,11 @@ public class BorderDrawer implements ShapeDecorator {
   private ShapeDecorator shapeDecorator;
 
   public BorderDrawer(ShapeDecorator shapeDecorator) {
+    this.shapeDecorator = shapeDecorator;
+
     if (shapeDecorator == null) {
       throw new IllegalArgumentException("Null is not allowed. Use empty constructor");
     }
-      this.shapeDecorator = shapeDecorator;
   }
 
   public BorderDrawer() {

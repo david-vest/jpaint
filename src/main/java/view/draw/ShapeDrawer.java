@@ -18,12 +18,11 @@ public class ShapeDrawer implements DrawStrategy {
   private ShapeDecorator shapeDecorator;
 
   public ShapeDrawer(ShapeDecorator shapeDecorator) {
+    this.shapeDecorator = shapeDecorator;
     if (shapeDecorator == null) {
       this.shapeDecorator = new NullDrawer();
       throw new IllegalArgumentException("No ShapeDecorator for Rectangle Drawer");
     }
-
-    this.shapeDecorator = shapeDecorator;
   }
 
   @Override
