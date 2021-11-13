@@ -105,6 +105,13 @@ public class Shape implements IShape {
   }
 
   @Override
+  public IShape copy() {
+    DrawStrategy strategy = drawStrategy.copy();
+    strategy.setDecorator(initialShapeDecorator);
+    return new Shape(boundingBox.copy(), primary, secondary, type, strategy);
+  }
+
+  @Override
   public String toString() {
     return getPrimaryColor().toString() + " " + getShapeType().toString() + " starting at " +
         getStart().toString();

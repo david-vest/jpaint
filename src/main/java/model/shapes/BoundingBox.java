@@ -38,26 +38,6 @@ public class BoundingBox implements IBoundingBox {
   }
 
   @Override
-  public void setStart(Point s) {
-    this.start = s;
-  }
-
-  @Override
-  public void setEnd(Point e) {
-    this.end = e;
-  }
-
-  @Override
-  public int getWidth() {
-    return end.getX() - start.getX();
-  }
-
-  @Override
-  public int getHeight() {
-    return end.getY() - start.getY();
-  }
-
-  @Override
   public void move(int x, int y) {
     start = new Point(start.getX() + x, start.getY() + y);
     end = new Point(end.getX() + x, end.getY() + y);
@@ -67,5 +47,10 @@ public class BoundingBox implements IBoundingBox {
   public boolean doesCollide(IBoundingBox box) {
     return this.getStart().getX() < box.getEnd().getX() && this.getEnd().getX() > box.getStart().getX()
         && this.getStart().getY() < box.getEnd().getY() && this.getEnd().getY() > box.getStart().getY();
+  }
+
+  @Override
+  public IBoundingBox copy() {
+    return new BoundingBox(start.copy(), end.copy());
   }
 }

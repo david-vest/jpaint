@@ -21,7 +21,7 @@ public class ShapeDrawer implements DrawStrategy {
     this.shapeDecorator = shapeDecorator;
     if (shapeDecorator == null) {
       this.shapeDecorator = new NullDrawer();
-      throw new IllegalArgumentException("No ShapeDecorator for Rectangle Drawer");
+      throw new IllegalArgumentException("No ShapeDecorator for Shape Drawer");
     }
   }
 
@@ -53,6 +53,11 @@ public class ShapeDrawer implements DrawStrategy {
         shapeDecorator.drawTriangle(graphics2D, shape, triangle);
         break;
     }
+  }
+
+  @Override
+  public DrawStrategy copy() {
+    return new ShapeDrawer(shapeDecorator);
   }
 
   protected static int[][] getTrianglePoints(Point start, int width, int height) {

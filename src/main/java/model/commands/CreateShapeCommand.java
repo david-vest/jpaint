@@ -36,10 +36,10 @@ public class CreateShapeCommand implements ICommand, Undoable {
     Color secondaryColor = state.getActiveSecondaryColor().get();
     shapeBuilder
         .setBBox(bbox)
-            .setFillColor(primaryColor)
-                .setBorderColor(secondaryColor)
-                    .setShapeType(state.getActiveShapeType())
-                        .setShadingType(state.getActiveShapeShadingType());
+        .setFillColor(primaryColor)
+        .setBorderColor(secondaryColor)
+        .setShapeType(state.getActiveShapeType())
+        .setShadingType(state.getActiveShapeShadingType());
 
     shape = shapeBuilder.build();
     shapeList.add(shape);

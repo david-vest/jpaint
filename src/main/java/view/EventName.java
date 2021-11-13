@@ -36,6 +36,4 @@ public enum EventName {
 	COPY,
 	PASTE,
 	DELETE,
-	GROUP,
-	UNGROUP
 }

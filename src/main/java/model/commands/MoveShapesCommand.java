@@ -30,25 +30,19 @@ public class MoveShapesCommand implements ICommand, Undoable {
 
   @Override
   public void execute() {
-    for (IShape shape : shapeList.getList()){
-      if (shape.isSelected()) {
-        shape.move(deltaX, deltaY);
-        movedShapes.add(shape);
-      }
-    }
+    shapeList.getSelected().forEach(s -> {
+      s.move(deltaX, deltaY);
+      movedShapes.add(s);
+    });
   }
 
   @Override
   public void undo() {
-    for (IShape shape : movedShapes) {
-      shape.move(-deltaX, -deltaY);
-    }
+    movedShapes.forEach(s -> s.move(-deltaX, -deltaY));
   }
 
   @Override
   public void redo() {
-    for (IShape shape: movedShapes) {
-      shape.move(deltaX, deltaY);
-    }
+   movedShapes.forEach(s -> s.move(deltaX, deltaY));
   }
 }

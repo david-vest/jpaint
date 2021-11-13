@@ -1,4 +1,4 @@
-package controller;
+package controller.interfaces;
 
 /**
  * EventConnector is responsible for connecting user choices with our

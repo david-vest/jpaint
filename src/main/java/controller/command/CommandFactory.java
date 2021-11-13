@@ -1,7 +1,9 @@
 package controller.command;
 
+import controller.Clipboard;
 import controller.interfaces.ICommand;
 import model.commands.CopyShapesCommand;
+import model.commands.DeleteShapesCommand;
 import model.commands.PasteShapesCommand;
 import model.shapes.BoundingBox;
 import model.Point;
@@ -12,22 +14,13 @@ import model.interfaces.UserChoices;
 import model.shapes.ShapeList;
 
 /**
- * CommandFactory is a factory method that instantiates a new ICommand depending on the current mouse
- * mode
+ * CommandFactory is a static factory that instantiates a new ICommand depending on the current mouse
+ * mode, as well as make the instances of copy, paste, and delete.
  */
 
 public class CommandFactory {
 
-  private final UserChoices state;
-  private final ShapeList shapeList;
-
-  public CommandFactory(UserChoices state, ShapeList shapeList) {
-    this.state = state;
-    this.shapeList = shapeList;
-  }
-
-  public ICommand makeDrawCommand(Point start, Point end) {
-
+  public static ICommand makeDrawCommand(UserChoices state, ShapeList shapeList, Point start, Point end) {
     BoundingBox box = new BoundingBox(start, end);
 
     switch (state.getActiveMouseMode()) {
@@ -37,15 +30,16 @@ public class CommandFactory {
         return new SelectShapesCommand(shapeList, box);
       case MOVE:
         return new MoveShapesCommand(shapeList, box);
+      default:
+        throw new IllegalStateException("No active mouse mode");
     }
-    throw new IllegalStateException("No active mouse mode");
   }
 
-  public ICommand makeCopyCommand() {
-    return new CopyShapesCommand(shapeList);
+  public static ICommand makeCopyCommand(ShapeList shapeList, Clipboard clipboard) {
+    return new CopyShapesCommand(shapeList, clipboard);
   }
 
-  public ICommand makePasteCommand() {
-    return new PasteShapesCommand(shapeList);
-  }
+  public static ICommand makePasteCommand(ShapeList shapeList, Clipboard clipboard) { return new PasteShapesCommand(shapeList, clipboard); }
+
+  public static ICommand makeDeleteCommand(ShapeList shapeList) { return new DeleteShapesCommand(shapeList); }
 }

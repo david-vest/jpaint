@@ -27,4 +27,5 @@ public interface IShape {
   void setSelected(boolean isSelected);
   void move(int x, int y);
   IBoundingBox getBBox();
+  IShape copy();
 }

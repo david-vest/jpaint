@@ -1,7 +1,10 @@
 package controller.command;
 
+import controller.Clipboard;
 import model.Point;
 import controller.interfaces.ICommand;
+import model.interfaces.UserChoices;
+import model.shapes.ShapeList;
 import view.gui.PaintCanvas;
 
 /**
@@ -11,16 +14,20 @@ import view.gui.PaintCanvas;
 
 public class CommandController {
 
+  private final UserChoices state;
+  private final ShapeList shapeList;
   private final PaintCanvas paintCanvas;
-  private final CommandFactory commandFactory;
+  private final Clipboard clipboard;
 
-  public CommandController(CommandFactory commandFactory, PaintCanvas paintCanvas) {
+  public CommandController(UserChoices state, ShapeList shapeList, PaintCanvas paintCanvas, Clipboard clipboard) {
+    this.state = state;
+    this.shapeList = shapeList;
     this.paintCanvas = paintCanvas;
-    this.commandFactory = commandFactory;
+    this.clipboard = clipboard;
   }
 
   public void onDraw(Point start, Point end) {
-    ICommand command = commandFactory.makeDrawCommand(start, end);
+    ICommand command = CommandFactory.makeDrawCommand(state, shapeList, start, end);
     command.execute();
     paintCanvas.repaint();
   }
@@ -36,12 +43,18 @@ public class CommandController {
   }
 
   public void onCopy() {
-    ICommand command = commandFactory.makeCopyCommand();
+    ICommand command = CommandFactory.makeCopyCommand(shapeList, clipboard);
     command.execute();
   }
 
   public void onPaste() {
-    ICommand command = commandFactory.makePasteCommand();
+    ICommand command = CommandFactory.makePasteCommand(shapeList, clipboard);
+    command.execute();
+    paintCanvas.repaint();
+  }
+
+  public void onDelete() {
+    ICommand command = CommandFactory.makeDeleteCommand(shapeList);
     command.execute();
     paintCanvas.repaint();
   }

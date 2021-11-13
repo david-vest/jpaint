@@ -12,6 +12,10 @@ import view.draw.ShapeDrawer;
 import view.interfaces.DrawStrategy;
 import view.interfaces.ShapeDecorator;
 
+/**
+ * ShapeBuilder follows the builder design pattern to create Shapes
+ */
+
 public class ShapeBuilder {
   private Color primaryColor;
   private Color secondaryColor;
@@ -46,12 +50,6 @@ public class ShapeBuilder {
     return this;
   }
 
-  /**Optional */
-  public ShapeBuilder setDecorator(ShapeDecorator decorator) {
-    this.shapeDecorator = decorator;
-    return this;
-  }
-
   private ShapeDecorator getShapeDecorator() {
     if (shapeDecorator == null) {
       switch (shadingType) {
@@ -69,9 +67,8 @@ public class ShapeBuilder {
   }
 
   public IShape build() {
-    DrawStrategy drawStrategy;
     shapeDecorator = getShapeDecorator();
-    drawStrategy = new ShapeDrawer(shapeDecorator);
+    DrawStrategy drawStrategy = new ShapeDrawer(shapeDecorator);
 
     return new Shape(bbox, primaryColor, secondaryColor, type, drawStrategy);
   }

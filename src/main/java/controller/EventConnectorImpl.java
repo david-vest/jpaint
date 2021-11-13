@@ -1,12 +1,13 @@
 package controller;
 
 import controller.command.CommandController;
+import controller.interfaces.EventConnector;
 import model.interfaces.UserChoices;
 import view.EventName;
 import view.interfaces.UiModule;
 
 /**
- * @see controller.EventConnector
+ * @see EventConnector
  */
 public class EventConnectorImpl implements EventConnector {
     private final UiModule uiModule;
@@ -34,5 +35,6 @@ public class EventConnectorImpl implements EventConnector {
         uiModule.addEvent(EventName.REDO,   commandController::onRedo);
         uiModule.addEvent(EventName.COPY, commandController::onCopy);
         uiModule.addEvent(EventName.PASTE, commandController::onPaste);
+        uiModule.addEvent(EventName.DELETE, commandController::onDelete);
     }
 }

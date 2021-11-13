@@ -1,5 +1,6 @@
 package model.commands;
 
+import controller.Clipboard;
 import controller.ShapeBuilder;
 import controller.command.CommandHistory;
 import controller.interfaces.ICommand;
@@ -13,48 +14,38 @@ import model.shapes.ShapeList;
 
 public class PasteShapesCommand implements ICommand, Undoable {
 
-  private final ArrayList<IShape> clipboard;
   private final ArrayList<IShape> pasted;
   private final ShapeList shapeList;
+  private final Clipboard clipboard;
 
-  public PasteShapesCommand(ShapeList shapeList) {
+  private final int OFFSET = 10;
+
+  public PasteShapesCommand(ShapeList shapeList, Clipboard clipboard) {
     this.shapeList = shapeList;
-    this.clipboard = shapeList.getClipboard();
+    this.clipboard = clipboard;
     this.pasted = new ArrayList<>();
   }
 
   @Override
   public void execute() {
-    for (IShape s : clipboard) {
-      System.out.println("Pasting: " + s);
-      ShapeBuilder builder = new ShapeBuilder();
-      Point start = new Point(s.getStart().getX() + 10, s.getStart().getY() + 10);
-      Point end = new Point(s.getEnd().getX() + 10, s.getEnd().getY() + 10);
-      IBoundingBox bbox = new BoundingBox(start, end);
-
-      builder.setBBox(bbox).setFillColor(s.getPrimaryColor()).setBorderColor(s.getSecondaryColor())
-          .setDecorator(s.getShapeDecorator()).setShapeType(s.getShapeType());
-
-      IShape shape = builder.build();
-      shape.setSelected(true);
-      shapeList.add(shape);
-      pasted.add(shape);
-    }
+    clipboard.getClipboard().forEach(s -> {
+      IShape newShape = s.copy();
+      newShape.move(OFFSET, OFFSET);
+      newShape.setSelected(true);
+      shapeList.add(newShape);
+      pasted.add(newShape);
+    });
 
     CommandHistory.add(this);
   }
 
   @Override
   public void undo() {
-    for(IShape s : pasted){
-      shapeList.remove(s);
-    }
+    clipboard.getClipboard().forEach(shapeList::remove);
   }
 
   @Override
   public void redo() {
-    for (IShape s : pasted) {
-      shapeList.add(s);
-    }
+   clipboard.getClipboard().forEach(shapeList::add);
   }
 }

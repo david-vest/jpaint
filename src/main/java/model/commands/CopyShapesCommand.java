@@ -1,18 +1,23 @@
 package model.commands;
 
+import controller.Clipboard;
 import controller.interfaces.ICommand;
+import javax.sound.sampled.Clip;
 import model.shapes.ShapeList;
 
 public class CopyShapesCommand implements ICommand {
 
   private final ShapeList shapeList;
+  private final Clipboard clipboard;
 
-  public CopyShapesCommand(ShapeList shapeList) {
+  public CopyShapesCommand(ShapeList shapeList, Clipboard clipboard) {
     this.shapeList = shapeList;
+    this.clipboard = clipboard;
   }
 
   @Override
   public void execute() {
-    shapeList.copySelected();
+    clipboard.clear();
+    shapeList.getSelected().forEach(clipboard::add);
   }
 }

@@ -1,10 +1,10 @@
 package model.shapes;
 
+import java.util.stream.Collectors;
 import model.interfaces.IBoundingBox;
 import model.interfaces.IShape;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 
 /**
  * ShapeList relies on an ArrayList of IShapes to hold all the shapes drawn.
@@ -13,7 +13,6 @@ import java.util.EmptyStackException;
 public class ShapeList {
 
   private final ArrayList<IShape> shapeContainer = new ArrayList<>();
-  private final ArrayList<IShape> clipboard = new ArrayList<>();
 
   public ShapeList() {
   }
@@ -23,44 +22,26 @@ public class ShapeList {
   }
 
   public void remove(IShape shape) {
-    if (shapeContainer.isEmpty()) {
-      throw new EmptyStackException();
-    }
     shapeContainer.remove(shape);
   }
 
   public void select(IBoundingBox box) {
     shapeContainer.forEach((s) -> {
       s.setSelected(false);
-      System.out.println("Deselected " + s + "\n");
-      if (box.doesCollide(s.getBBox())) {
-        s.setSelected(true);
-      }
+      boolean collision = s.getBBox().doesCollide(box);
+      s.setSelected(collision);
     });
-  }
-
-  public void copySelected() {
-    clipboard.clear();
-    for (IShape s : shapeContainer) {
-      if (s.isSelected()) {
-        System.out.println("Copying: " + s);
-        clipboard.add(s);
-      }
-    }
   }
 
   public ArrayList<IShape> getList() {
     return shapeContainer;
   }
 
-  public ArrayList<IShape> getClipboard() {
-    return clipboard;
+  public ArrayList<IShape> getSelected() {
+    return (ArrayList<IShape>) shapeContainer.stream().filter(IShape::isSelected).collect(Collectors.toList());
   }
 
   public void draw(Graphics2D graphics2D) {
-    shapeContainer.forEach((s) -> {
-      System.out.print("Drawing " + s + "\n");
-      s.draw(graphics2D);
-    });
+    shapeContainer.forEach((s) -> s.draw(graphics2D));
   }
 }
