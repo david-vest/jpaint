@@ -22,7 +22,7 @@ public class Gui implements UiModule {
 		button.addActionListener((ActionEvent) -> callback.run());
 	}
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public <T> T getDialogResponse(DialogChoice dialogSettings) {
         Object selectedValue = JOptionPane.showInputDialog(null,

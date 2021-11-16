@@ -8,11 +8,9 @@ import model.shapes.ShapeList;
  * Clipboard holds an ArrayList of IShape instances that have been copied
  */
 public class Clipboard {
-  private ArrayList<IShape> clipboard = new ArrayList<>();
-  private final ShapeList shapeList;
+  private final ArrayList<IShape> clipboard = new ArrayList<>();
 
   public Clipboard(ShapeList shapeList) {
-    this.shapeList = shapeList;
   }
 
   public void add(IShape shape) {

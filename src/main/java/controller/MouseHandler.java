@@ -5,8 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import model.Point;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * MouseHandler is responsible for propagating mouse coordinates into our application
@@ -14,10 +12,8 @@ import org.slf4j.LoggerFactory;
  */
 public class MouseHandler extends MouseAdapter {
 
-  private static final Logger log = LoggerFactory.getLogger(MouseHandler.class);
   private final CommandController controller;
   private Point startPoint;
-  private Point endPoint;
 
   public MouseHandler(CommandController controller) {
     this.controller = controller;
@@ -31,7 +27,7 @@ public class MouseHandler extends MouseAdapter {
 
   @Override
   public void mouseReleased(MouseEvent e) {
-    endPoint = new Point(e.getX(), e.getY());
+    Point endPoint = new Point(e.getX(), e.getY());
     controller.onDraw(startPoint, endPoint);
   }
 }

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import model.Point;
 import model.ShapeType;
-import view.interfaces.DrawStrategy;
 import view.interfaces.ShapeDecorator;
 
 /**

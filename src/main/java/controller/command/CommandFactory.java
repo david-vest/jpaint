@@ -39,7 +39,9 @@ public class CommandFactory {
     return new CopyShapesCommand(shapeList, clipboard);
   }
 
-  public static ICommand makePasteCommand(ShapeList shapeList, Clipboard clipboard) { return new PasteShapesCommand(shapeList, clipboard); }
+  public static ICommand makePasteCommand(ShapeList shapeList, Clipboard clipboard) {
+    return new PasteShapesCommand(shapeList, clipboard);
+  }
 
   public static ICommand makeDeleteCommand(ShapeList shapeList) { return new DeleteShapesCommand(shapeList); }
 }

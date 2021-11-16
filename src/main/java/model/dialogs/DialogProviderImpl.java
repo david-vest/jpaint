@@ -14,15 +14,13 @@ public class DialogProviderImpl implements DialogProvider {
     private final DialogChoice<ShapeColor> chooseSecondaryColorDialog;
     private final DialogChoice<ShapeShadingType> chooseShadingTypeDialog;
     private final DialogChoice<MouseMode> chooseStartAndEndPointModeDialog;
-    private final UserChoices applicationState;
 
-    public DialogProviderImpl(UserChoices applicationState) {
-        this.applicationState = applicationState;
-        chooseShapeDialog = new ChooseShapeDialog(this.applicationState);
-        choosePrimaryColorDialog = new ChoosePrimaryColorDialog(this.applicationState);
-        chooseSecondaryColorDialog = new ChooseSecondaryColorDialog(this.applicationState);
-        chooseShadingTypeDialog = new ChooseShadingTypeDialog(this.applicationState);
-        chooseStartAndEndPointModeDialog = new ChooseStartAndEndPointModeDialog(this.applicationState);
+  public DialogProviderImpl(UserChoices applicationState) {
+    chooseShapeDialog = new ChooseShapeDialog(applicationState);
+        choosePrimaryColorDialog = new ChoosePrimaryColorDialog(applicationState);
+        chooseSecondaryColorDialog = new ChooseSecondaryColorDialog(applicationState);
+        chooseShadingTypeDialog = new ChooseShadingTypeDialog(applicationState);
+        chooseStartAndEndPointModeDialog = new ChooseStartAndEndPointModeDialog(applicationState);
     }
 
     @Override

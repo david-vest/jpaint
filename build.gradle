@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'edu.depaul'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -63,4 +63,3 @@ ext {
 application {
     mainClassName = javaMainClass
 }
-

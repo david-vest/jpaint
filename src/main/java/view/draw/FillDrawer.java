@@ -11,7 +11,8 @@ public class FillDrawer implements ShapeDecorator {
   private ShapeDecorator shapeDecorator;
 
   /**
-   * Using this constructor might mean that whatever is inside might be hidden by the filled shape
+   * Using this constructor might mean that whatever is inside might be hidden by the filled shape.
+   * Since the decorator moves recursively, the most nested decorator is the one drawn on the bottom.
    */
   public FillDrawer(ShapeDecorator shapeDecorator) {
     this.shapeDecorator = shapeDecorator;

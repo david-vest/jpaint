@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import model.interfaces.IShape;
 
 /**
- * DrawStrategy is an interface that handles drawing the ShapeDecorator for the three shapes.
+ * DrawStrategy is an interface that handles calling the ShapeDecorator chain for the three shapes.
  * */
 
 public interface DrawStrategy {

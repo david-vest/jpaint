@@ -2,7 +2,6 @@ package model.commands;
 
 import controller.Clipboard;
 import controller.interfaces.ICommand;
-import javax.sound.sampled.Clip;
 import model.shapes.ShapeList;
 
 public class CopyShapesCommand implements ICommand {

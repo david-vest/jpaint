@@ -13,9 +13,7 @@ import view.EventName;
 import java.awt.*;
 
 public class GuiWindowImpl extends JFrame implements GuiWindow {
-  private final int defaultWidth = 1250;
-  private final int defaultHeight = 800;
-  private final String defaultTitle = "JPaint";
+
   private final Insets defaultButtonDimensions
       = new Insets(5, 8, 5, 8);
   private final Map<EventName, JButton> eventButtons = new HashMap<>();
@@ -23,7 +21,10 @@ public class GuiWindowImpl extends JFrame implements GuiWindow {
   public GuiWindowImpl(JComponent canvas) {
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    String defaultTitle = "JPaint";
     setTitle(defaultTitle);
+    int defaultHeight = 800;
+    int defaultWidth = 1250;
     setSize(defaultWidth, defaultHeight);
     setBackground(new Color(157, 157, 157));
     setExtendedState(JFrame.MAXIMIZED_BOTH);

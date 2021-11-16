@@ -1,15 +1,11 @@
 package model.commands;
 
 import controller.Clipboard;
-import controller.ShapeBuilder;
 import controller.command.CommandHistory;
 import controller.interfaces.ICommand;
 import controller.interfaces.Undoable;
 import java.util.ArrayList;
-import model.Point;
-import model.interfaces.IBoundingBox;
 import model.interfaces.IShape;
-import model.shapes.BoundingBox;
 import model.shapes.ShapeList;
 
 public class PasteShapesCommand implements ICommand, Undoable {
@@ -41,11 +37,11 @@ public class PasteShapesCommand implements ICommand, Undoable {
 
   @Override
   public void undo() {
-    clipboard.getClipboard().forEach(shapeList::remove);
+    pasted.forEach(shapeList::remove);
   }
 
   @Override
   public void redo() {
-   clipboard.getClipboard().forEach(shapeList::add);
+   pasted.forEach(shapeList::add);
   }
 }

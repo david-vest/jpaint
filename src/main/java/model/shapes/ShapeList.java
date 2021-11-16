@@ -33,10 +33,6 @@ public class ShapeList {
     });
   }
 
-  public ArrayList<IShape> getList() {
-    return shapeContainer;
-  }
-
   public ArrayList<IShape> getSelected() {
     return (ArrayList<IShape>) shapeContainer.stream().filter(IShape::isSelected).collect(Collectors.toList());
   }
